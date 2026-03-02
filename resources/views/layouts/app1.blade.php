@@ -7,6 +7,7 @@
     <title>{{ config('app.name', 'bokmart' ) }} ~ bookmart.az</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -30,13 +31,14 @@
             </h5>
         </div>
         <!-- header mobil-->
+        
         <header class="h-16  border-b px-4 w-full lg:hidden  flex items-center justify-between">
             <div>
-                <span>
+                <button onclick="toggleMenu(true)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 24" stroke-width="1.3" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
-                </span>
+                </button>
             </div>
             <div>
                 <x-icons.logo width="w-44" />
@@ -60,7 +62,7 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
-                            <input type="text" id="search" class="block w-full p-3 border border-gray-300 text-heading text-sm rounded-base  shadow-xs placeholder:text-body" placeholder="Search"  />
+                            <input type="text" id="search" class="block w-full p-3 border border-gray-300 text-heading text-sm rounded-base  shadow-xs placeholder:text-body" placeholder="Search" />
                         </div>
                     </form>
                 </div>
@@ -72,7 +74,45 @@
                 </div>
             </div>
         </header>
+        <x-nav />
+        <x-nav-mobil />
+
     </div>
 </body>
+<script>
+    function toggleMenu(isOpen) {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('overlay');
+
+        if (isOpen) {
+            menu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Ekranın arxada sürüşməsini bağlayır
+        } else {
+            menu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function switchTab(tabName) {
+        const melumatTab = document.getElementById('tab-melumat');
+        const bolmelerTab = document.getElementById('tab-bolmeler');
+        const btnMelumat = document.getElementById('btn-melumat');
+        const btnBolmeler = document.getElementById('btn-bolmeler');
+
+        if (tabName === 'melumat') {
+            melumatTab.classList.replace('hidden', 'block');
+            bolmelerTab.classList.replace('block', 'hidden');
+            btnMelumat.classList.add('border-indigo-900', 'bg-gray-100');
+            btnBolmeler.classList.remove('border-indigo-900', 'bg-gray-100');
+        } else {
+            bolmelerTab.classList.replace('hidden', 'block');
+            melumatTab.classList.replace('block', 'hidden');
+            btnBolmeler.classList.add('border-indigo-900', 'bg-gray-100');
+            btnMelumat.classList.remove('border-indigo-900', 'bg-gray-100');
+        }
+    }
+</script>
 
 </html>

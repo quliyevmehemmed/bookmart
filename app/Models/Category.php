@@ -12,7 +12,7 @@ class Category extends Model
     protected $fillable = ['name', 'slug', 'parent_id', 'status'];
 
     // Alt kateqoriyaları gətirmək üçün
-    public function children()
+    public function subcategories()
     {
         return $this->hasMany(Category::class, 'parent_id');
     }

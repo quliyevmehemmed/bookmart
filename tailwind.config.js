@@ -17,6 +17,9 @@ export default {
             fontFamily: {
                 'poppins': ['Poppins', 'sans-serif'],
             },
+            fontFamily: {
+                'josefin': ['"Josefin Sans"', 'sans-serif'],
+            },
             colors: {
                 'color-brand': '#2f2b5b',
 
