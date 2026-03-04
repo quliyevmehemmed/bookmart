@@ -12,17 +12,14 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
-            fontFamily: {
-                'poppins': ['Poppins', 'sans-serif'],
-            },
-            fontFamily: {
+                sans: ['Josefin Sans', ...defaultTheme.fontFamily.sans],
+
                 'josefin': ['"Josefin Sans"', 'sans-serif'],
+
+                'poppins': ['Poppins', 'sans-serif'],
             },
             colors: {
                 'color-brand': '#2f2b5b',
-
             },
         },
     },

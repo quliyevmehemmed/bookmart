@@ -1,4 +1,4 @@
-<div class="hidden max-w-[1200px] px-4 mx-auto lg:flex">
+<div class="hidden max-w-[1200px] gap-4 px-4 mx-auto lg:flex">
 
     <div class="relative inline-block group">
 
@@ -93,25 +93,25 @@
 
         </ul>
     </div>
-    <nav class="flex items-center  bg-white p-6 font-sans">
+    <nav class="flex items-center  bg-white font-sans">
 
-        <a href="#" class="text-[#2d2e5f] font-bold text-[12px] tracking-wider uppercase px-8 py-3 hover:opacity-80  rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="#" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80  rounded-full transition-all hover:bg-[#c3c4d5]">
             Tezliklə
         </a>
 
-        <a href="#" class=" text-[#2d2e5f] font-bold text-[12px] tracking-wider uppercase px-8 py-3 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="#" class=" text-[#333333]  font-bold text-[12px] tracking-wider uppercase px-3 py-3 rounded-full transition-all hover:bg-[#c3c4d5]">
             Kitab sifariş et
         </a>
 
-        <a href="#" class="text-[#2d2e5f] font-bold text-[12px] tracking-wider uppercase px-8 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="#" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
             Kitabını sat
         </a>
 
-        <a href="#" class="text-[#2d2e5f] font-bold text-[12px] tracking-wider uppercase px-8 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="#" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
             Kitabını çap et
         </a>
 
-        <a href="#" class="text-[#2d2e5f] font-bold text-[12px] tracking-wider uppercase px-8 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="#" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
             Hazırlıq kursuna qoşul
         </a>
 

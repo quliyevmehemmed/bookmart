@@ -8,6 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
@@ -31,7 +32,7 @@
             </h5>
         </div>
         <!-- header mobil-->
-        
+
         <header class="h-16  border-b px-4 w-full lg:hidden  flex items-center justify-between">
             <div>
                 <button onclick="toggleMenu(true)">
@@ -66,7 +67,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="flex ">
+                <div class="flex items-center ">
                     <a class="mx-2" href=""><x-icons.profile /></a>
                     <a class="mx-2" href=""><x-icons.favorites /></a>
                     <a class="mx-2" href=""><x-icons.basket /></a>
@@ -78,6 +79,116 @@
         <x-nav-mobil />
 
     </div>
+    <main class="h-screen">
+
+    </main>
+    <footer class="bg-cover bg-[position:50%_100%] text-white" style="background-image: url('/img/footer.webp')">
+        <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+
+            <!-- Logo -->
+            <div class="flex justify-center mb-6">
+                <svg width="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" x="0px" y="0px" viewBox="0 0 391.1 88.7" style="enable-background:new 0 0 391.1 88.7;" xml:space="preserve">
+                    <style type="text/css">
+                        .st2 {
+                            fill: #FFFFFF;
+                        }
+                    </style>
+                    <path class="st2" d="M4.6,84.3V2.6H11v24.3c2.4-3.7,5.9-5.6,10.6-5.6c4.2,0,7.4,1.4,9.8,4.3S35,31.9,35,35.8V71 c0,4-1.2,7.5-3.7,10.3c-2.4,2.8-5.6,4.2-9.7,4.2c-4.7,0-8.3-1.9-10.6-5.7l-0.5,4.6L4.6,84.3L4.6,84.3z M11.1,36.2v34.3 c0,5.5,3.5,9.2,8.7,9.2c5.5,0,8.9-3.8,8.9-9.2V36.2c0-5.5-3.5-9.2-8.8-9.2C14.4,27,11.1,30.8,11.1,36.2z" />
+                    <path class="st2" d="M67.9,25.6c2.8,2.9,4.3,6.6,4.3,10.9v33.6c0,4.4-1.4,8.1-4.3,11s-6.5,4.3-10.9,4.3s-8-1.4-10.9-4.3 s-4.4-6.5-4.4-10.9V36.5c0-4.4,1.5-8,4.4-10.9s6.6-4.4,10.9-4.4C61.5,21.3,65.1,22.7,67.9,25.6z M48.1,36.2v34.1 c0,5.5,3.4,9.1,8.9,9.1c5.3,0,8.7-3.6,8.7-9.1V36.2c0-5.5-3.4-9.2-8.7-9.2C51.5,27,48.1,30.8,48.1,36.2z" />
+                    <path class="st2" d="M105,25.6c2.9,2.9,4.3,6.6,4.3,10.9v33.6c0,4.4-1.4,8.1-4.3,11s-6.5,4.3-10.9,4.3s-8-1.4-10.9-4.3 s-4.4-6.5-4.4-10.9V36.5c0-4.4,1.5-8,4.4-10.9s6.6-4.4,10.9-4.4C98.6,21.3,102.2,22.7,105,25.6z M85.2,36.2v34.1 c0,5.5,3.4,9.1,8.9,9.1c5.3,0,8.7-3.6,8.7-9.1V36.2c0-5.5-3.4-9.2-8.7-9.2C88.6,27,85.2,30.8,85.2,36.2z" />
+                    <path class="st2" d="M117.4,84.3V2.6h6.4v46.2h0.7l14-26.3h7.2L130,51.6l17.1,32.6h-7.2l-15.4-29.9h-0.7v29.9L117.4,84.3L117.4,84.3 z" />
+                    <path class="st2" d="M150.6,84.3V22.5h5.7L157,27c2.3-3.8,5.9-5.7,10.6-5.7c5.8,0,10.2,3.2,12.2,8c2.1-5.4,6-8,11.8-8 c4.2,0,7.4,1.4,9.8,4.3s3.6,6.3,3.6,10.2v48.5h-6.4V36.2c0-5.5-3.4-9.2-8.9-9.2c-5.3,0-8.8,3.8-8.8,9.2v48.1h-6.4V36.2 c0-5.5-3.5-9.2-8.8-9.2c-5.5,0-8.8,3.8-8.8,9.2v48.1H150.6L150.6,84.3z" />
+                    <path class="st2" d="M238,25.7c2.9,2.9,4.4,6.6,4.4,10.9v47.6h-5.7l-0.7-4.8c-2.6,4-6.2,6-10.9,6c-4.3,0-7.7-1.4-10.3-4.3 c-2.5-2.9-3.8-6.4-3.8-10.6V62c0-4.4,1.4-8.1,4.2-10.9c2.9-2.9,6.6-4.3,11-4.3h9.7V36.2c0-5.5-3.5-9.2-8.7-9.2 c-5.5,0-8.9,3.8-8.9,9.2v6.7h-6.4v-6.3c0-4.4,1.4-8.1,4.3-10.9c2.9-2.9,6.5-4.3,10.9-4.3C231.5,21.3,235.1,22.8,238,25.7z M235.9,52.4h-9.7c-5.5,0-8.8,3.8-8.8,9.2V70c0,5.8,3.6,9.7,9.2,9.7c5.6,0,9.3-3.9,9.3-9.7V52.4L235.9,52.4z" />
+                    <path class="st2" d="M251.1,84.3V22.5h5.9l0.5,4.5c2.2-3.8,5.6-5.7,10.3-5.7c1.1,0,2.2,0.2,3.2,0.5l-0.1,5.2h-4.6 c-5.5,0-8.8,3.8-8.8,9.2v48.1H251.1L251.1,84.3z" />
+                    <path class="st2" d="M274.5,28.2v-5.7h6.9V7.3l6.4-0.6v15.8h7v5.7h-7v42.7c0,5.2,3.2,8.9,8.1,8.9l0.3,5.6l-0.6,0.1h-1 c-3.6,0-6.8-1.3-9.4-4s-3.9-6.1-3.9-10.4V28.2H274.5z" />
+                    <path class="st2" d="M302,84.3v-8.1h6.4v8.1H302z" />
+                    <path class="st2" d="M342.4,25.7c2.9,2.9,4.4,6.6,4.4,10.9v47.6h-5.7l-0.7-4.8c-2.6,4-6.2,6-10.9,6c-4.3,0-7.7-1.4-10.3-4.3 c-2.5-2.9-3.8-6.4-3.8-10.6V62c0-4.4,1.4-8.1,4.2-10.9c2.9-2.9,6.5-4.3,11-4.3h9.7V36.2c0-5.5-3.5-9.2-8.7-9.2 c-5.5,0-8.9,3.8-8.9,9.2v6.7h-6.4v-6.3c0-4.4,1.4-8.1,4.3-10.9c2.9-2.9,6.5-4.3,10.9-4.3C335.9,21.3,339.5,22.8,342.4,25.7z M340.4,52.4h-9.7c-5.5,0-8.8,3.8-8.8,9.2V70c0,5.8,3.6,9.7,9.2,9.7s9.3-3.9,9.3-9.7V52.4L340.4,52.4z" />
+                    <path class="st2" d="M352.6,84.3v-6l24.2-50.1h-23.6v-5.7h30.1v5.4l-24.4,50.4H383v6H352.6z" />
+                </svg>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex justify-center gap-10 mb-6 text-lg">
+                <a href="#" class="hover:text-gray-300 transition">Haqqımızda</a>
+                <a href="#" class="hover:text-gray-300 transition">Çatdırılma</a>
+                <a href="#" class="hover:text-gray-300 transition">Əlaqə</a>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="flex flex-wrap justify-center items-center gap-6 mb-6 text-sm">
+
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+994 55 604 00 27</span>
+                </div>
+
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>+994 50 604 00 27</span>
+                </div>
+
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>info@bookmart.az</span>
+                </div>
+
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Bakı, Bəsti Bağırova 12</span>
+                </div>
+
+            </div>
+
+            <!-- Social Icons -->
+            <div class="flex justify-center gap-4 mb-6">
+
+                <a href="#" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-[#3E3A6D] transition">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-[#3E3A6D] transition">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+
+                <a href="#" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-[#3E3A6D] transition">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-[#3E3A6D] transition">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+
+                <a href="#" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-[#3E3A6D] transition">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+
+                <a href="#" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-[#3E3A6D] transition">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+
+            </div>
+
+            <!-- Bottom Text -->
+            <p class="text-sm text-gray-300">
+                © Bookmart.az Created by Webline
+            </p>
+
+        </div>
+    </footer>
+    <!-- <footer class="bg-cover bg-center min-h-[300px]" style="background-image: url('/img/footer.webp')">
+        
+        <div class="flex justify-center">
+            <div></div>
+            <div>
+                <a class="text-white text-lg p-2" href="">haqqımızda</a>
+                <a class="text-white text-lg p-2" href="">Çatdırılma</a>
+                <a class="text-white text-lg p-2" href="">Əlaqə</a>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </footer> -->
 </body>
 <script>
     function toggleMenu(isOpen) {

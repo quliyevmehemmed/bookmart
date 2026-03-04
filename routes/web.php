@@ -1,16 +1,13 @@
 <?php
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
+
 
 // 1. Ana Səhifə (Bokmartin görünəcəyi yer)
 Route::get('/', function () {
@@ -44,5 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/about-us', [PageController::class, 'about'])->name('about-us');
 // Auth (Login, Register, Logout) marşrutlarını yükləyir
 require __DIR__.'/auth.php';

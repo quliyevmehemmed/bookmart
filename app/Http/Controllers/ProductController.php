@@ -25,7 +25,7 @@ class ProductController extends Controller
         // Formada kateqoriyaları seçmək üçün hamısını göndəririk
         $categories = Category::all();
         return view('admin.products.create', compact('categories'));
-    }
+    }   
 
     /**
      * Store a newly created resource in storage.
