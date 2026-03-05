@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
@@ -42,5 +43,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/about-us', [PageController::class, 'about'])->name('about-us');
+Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
+Route::get('/contact-us', [PageController::class, 'contact'])->name('contact-us');
+
+Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
 // Auth (Login, Register, Logout) marşrutlarını yükləyir
 require __DIR__.'/auth.php';

@@ -1,4 +1,4 @@
-<div class="hidden max-w-[1200px] gap-4 px-4 mx-auto lg:flex">
+<div class="hidden  max-w-[1200px] gap-4 px-4 mx-auto lg:flex">
 
     <div class="relative inline-block group">
 
@@ -116,4 +116,6 @@
         </a>
 
     </nav>
+
 </div>
+<div class="border-b"></div>

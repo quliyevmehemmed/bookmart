@@ -70,17 +70,17 @@
                 <div class="flex items-center ">
                     <a class="mx-2" href=""><x-icons.profile /></a>
                     <a class="mx-2" href=""><x-icons.favorites /></a>
-                    <a class="mx-2" href=""><x-icons.basket /></a>
+                    <a class="relative mx-2" href=""><x-icons.basket /></a>
                     <a class="mx-2" href="">9</a>
                 </div>
             </div>
         </header>
-        <x-nav />
+            <x-nav />
         <x-nav-mobil />
 
     </div>
-    <main class="h-screen">
-
+    <main class="">
+        @yield('content')
     </main>
     <footer class="bg-cover bg-[position:50%_100%] text-white" style="background-image: url('/img/footer.webp')">
         <div class="max-w-6xl mx-auto px-6 py-8 text-center">
@@ -109,9 +109,9 @@
 
             <!-- Navigation -->
             <div class="flex justify-center gap-10 mb-6 text-lg">
-                <a href="#" class="hover:text-gray-300 transition">Haqqımızda</a>
-                <a href="#" class="hover:text-gray-300 transition">Çatdırılma</a>
-                <a href="#" class="hover:text-gray-300 transition">Əlaqə</a>
+                <a href="about-us" class="hover:text-gray-300 transition">Haqqımızda</a>
+                <a href="delivery" class="hover:text-gray-300 transition">Çatdırılma</a>
+                <a href="contact-us" class="hover:text-gray-300 transition">Əlaqə</a>
             </div>
 
             <!-- Contact Info -->
