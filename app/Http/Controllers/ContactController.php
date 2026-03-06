@@ -22,9 +22,36 @@ class ContactController extends Controller
         return back()->with('success', 'Sorğunuz uğurla göndərildi!');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $messages = Contact::latest()->paginate(10);
+        $query = Contact::query();
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_read', $request->status);
+        }
+
+        $messages = $query->latest()->paginate(10);
+
         return view('admin.messages.index', compact('messages'));
     }
+
+    public function destroy($id)
+    {
+        $message = Contact::findOrFail($id);
+        $message->delete();
+
+        return back()->with('success', 'Mesaj silindi!');
+    }
+
+    public function markAsRead($id) {
+        $message = Contact::findOrFail($id);
+        $message->update(['is_read' => 1 ]);
+
+        return back()->with('success', 'Mesaj oxundu olaraq işarələndi.');
+    }
+
 }

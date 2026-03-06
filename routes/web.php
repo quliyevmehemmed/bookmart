@@ -47,5 +47,8 @@ Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact-us');
 
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');
+Route::delete('admin/messages/{id}', [ContactController::class, 'destroy'])->name('admin.messages.destroy');
+Route::patch('/admin/messages/{id}/read', [ContactController::class, 'markAsRead'])->name('admin.messages.read');
 // Auth (Login, Register, Logout) marşrutlarını yükləyir
 require __DIR__.'/auth.php';
