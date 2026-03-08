@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'bokmart' ) }} ~ bookmart.az</title>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -68,14 +71,19 @@
                     </form>
                 </div>
                 <div class="flex items-center ">
-                    <a class="mx-2" href=""><x-icons.profile /></a>
+                    @auth
+                    <a class="mx-2" href="{{ route('account') }}"><x-icons.profile /></a>
+                    @else
+                    <a class="mx-2" href="{{ route('login') }}"><x-icons.profile /></a>
+                    @endauth
+
                     <a class="mx-2" href=""><x-icons.favorites /></a>
                     <a class="relative mx-2" href=""><x-icons.basket /></a>
                     <a class="mx-2" href="">9</a>
                 </div>
             </div>
         </header>
-            <x-nav />
+        <x-nav />
         <x-nav-mobil />
 
     </div>

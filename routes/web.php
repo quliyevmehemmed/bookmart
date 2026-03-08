@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrederController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PageController;
@@ -11,16 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 
 // 1. Ana Səhifə (Bokmartin görünəcəyi yer)
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/home', [FrontendController::class, 'index'])->name('home');
+
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 // 2. İstifadəçi Dashboard (Breeze-in standart paneli)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/account', function () {
+    return view('profile.account');
+})->middleware(['auth', 'verified'])->name('account');
 
 Route::get('/panel', function () {
     $user = auth()->user();
@@ -50,5 +49,13 @@ Route::post('/contact-submit', [ContactController::class, 'store'])->name('conta
 Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');
 Route::delete('admin/messages/{id}', [ContactController::class, 'destroy'])->name('admin.messages.destroy');
 Route::patch('/admin/messages/{id}/read', [ContactController::class, 'markAsRead'])->name('admin.messages.read');
+
+
+Route::get('/admin/orders', [OrederController::class, 'index'])->name('admin.orders');
+Route::delete('admin/orders/{id}', [OrederController::class, 'destroy'])->name('admin.orders.destroy');
+Route::get('admin/orders/{order}', [OrederController::class, 'show'])->name('admin.orders.show');
+Route::put('admin/orders/{order}', [OrederController::class, 'update'])->name('admin.orders.update');
+
+
 // Auth (Login, Register, Logout) marşrutlarını yükləyir
 require __DIR__.'/auth.php';

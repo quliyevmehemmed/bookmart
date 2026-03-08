@@ -33,6 +33,9 @@ class ContactController extends Controller
         if ($request->filled('status')) {
             $query->where('is_read', $request->status);
         }
+        else {
+            $query->where('is_read', '0');
+        }
 
         $messages = $query->latest()->paginate(10);
 

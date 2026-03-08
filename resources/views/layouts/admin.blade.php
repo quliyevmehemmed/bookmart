@@ -77,7 +77,13 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Messages</span>
                 </a>
-                
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/orders"  data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Orders</span>
+                </a>
             </li>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
