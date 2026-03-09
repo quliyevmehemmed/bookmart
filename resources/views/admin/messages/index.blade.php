@@ -47,7 +47,7 @@
                 <td>{{ Str::limit($message->message, 50) }}</td>
                 <td>{{ $message->created_at->format('d.m.Y') }}</td>
                 <td class="w-60">
-                    <div class="flex justify-center ">
+                    <div class="flex     justify-center ">
                         <form action="{{ route('admin.messages.destroy', $message->id) }}" method="POST" onsubmit="return confirm('Silmək istədiyinizə əminsiniz?')">
                             @csrf
                             @method('DELETE')

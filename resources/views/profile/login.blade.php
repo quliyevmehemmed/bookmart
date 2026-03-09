@@ -40,7 +40,7 @@
                 <span class="text-sm">Başarılı!</span>
             </div>
 
-            <button class="w-full bg-indigo-900 text-white py-3 font-semibold">
+            <button class="w-full bg-color-brand text-white py-3 font-semibold">
                 DAXİL OL
             </button>
 

@@ -19,78 +19,30 @@
                group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
 
             @foreach ($categories as $category )
+            @php $hasSub = $category->subcategories->isNotEmpty(); @endphp
+
             <li class="relative group/item border-b border-gray-100">
                 <a href="#" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
                     {{$category->name}}
+                    @if ($hasSub)
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
+                    @endif
                 </a>
+                @if ($hasSub)
 
                 <ul class="absolute left-full top-0 w-64 bg-white border border-gray-200 shadow-lg
                     transition-all duration-300 ease-in-out transform opacity-0 invisible translate-x-2
                     group-hover/item:opacity-100 group-hover/item:visible group-hover/item:translate-x-0">
-                    <li><a href="#" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">Alt Bölmə 1</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">Alt Bölmə 2</a></li>
+
+                    @foreach ($category->subcategories as $sub )
+                    <li><a href="#" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">{{$sub->name}}</a></li>
+                    @endforeach
                 </ul>
+                @endif
             </li>
             @endforeach
-            <!-- <li class="relative group/item border-b border-gray-100">
-                <a href="#" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
-                    Dövlət orqanları üzrə dərsliklər
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </a>
-
-                <ul class="absolute left-full top-0 w-64 bg-white border border-gray-200 shadow-lg
-                   transition-all duration-300 ease-in-out transform opacity-0 invisible translate-x-2
-                   group-hover/item:opacity-100 group-hover/item:visible group-hover/item:translate-x-0">
-                    <li><a href="#" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">Alt Bölmə 1</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">Alt Bölmə 2</a></li>
-                </ul>
-            </li>
-
-            <li class="relative group/item border-b border-gray-100">
-                <a href="#" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
-                    Təhsil pillələri üzrə dərsliklər
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </a>
-
-                <ul class="absolute left-full top-0 w-64 bg-white border border-gray-200 shadow-lg hidden group-hover/item:block min-h-full">
-                    <li><a href="#" class="block px-6 py-3 text-md text-gray-800 hover:bg-gray-50">Məktəbəqədər</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-md text-gray-800 hover:bg-gray-50">Orta məktəb</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-md text-gray-800 hover:bg-gray-50">Abituriyent</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-md text-gray-800 hover:bg-gray-50">Magistratura</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-md text-gray-800 hover:bg-gray-50">Universitet</a></li>
-                    <li><a href="#" class="block px-6 py-3 text-md text-gray-800 hover:bg-gray-50">Digər</a></li>
-                </ul>
-            </li>
-
-            <li class="border-b border-gray-100">
-                <a href="#" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
-                    Bədii ədəbiyyat
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </a>
-            </li>
-
-            <li class="border-b border-gray-100">
-                <a href="#" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
-                    Test topluları
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </a>
-            </li>
-
-            <li>
-                <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Digər məhsullar</a>
-            </li> -->
-
         </ul>
     </div>
     <nav class="flex items-center  bg-white font-sans">
