@@ -31,7 +31,6 @@
                     @endif
                 </a>
                 @if ($hasSub)
-
                 <ul class="absolute left-full top-0 w-64 bg-white border border-gray-200 shadow-lg
                     transition-all duration-300 ease-in-out transform opacity-0 invisible translate-x-2
                     group-hover/item:opacity-100 group-hover/item:visible group-hover/item:translate-x-0">

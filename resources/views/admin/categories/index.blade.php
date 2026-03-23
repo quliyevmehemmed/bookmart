@@ -3,8 +3,10 @@
 @section('main_content')
 
 <div class="container mx-auto p-6 text-black">
-
     <h1 class="text-2xl font-bold mb-6">Categories</h1>
+    <div class="my-4">
+        {{ $categories->links() }}
+    </div>
 
     <table class="w-full border border-gray-300">
 
@@ -46,7 +48,7 @@
                     @if($category->status)
                     <span class="text-green-600 font-semibold">Active</span>
                     @else
-                    <span class="text-red-600 font-semibold">Deactive   </span>
+                    <span class="text-red-600 font-semibold">Deactive </span>
                     @endif
 
                 </td>
@@ -88,8 +90,6 @@
         Add Category
 
     </a>
-    <div class="mt-4">
-    {{ $categories->links() }}
-</div>
+    
 </div>
 @endsection

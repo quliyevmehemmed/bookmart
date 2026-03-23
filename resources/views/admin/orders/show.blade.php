@@ -2,6 +2,9 @@
 
 @section('main_content')
 <div class="container-fluid py-4">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold">Sifarişin detalları</h2>
+    </div>
     <div class="row">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
@@ -68,7 +71,8 @@
                     <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <select name="status" class="form-select mb-3">
+
+                        <select name="status" class="form-select custom-select-brand mb-3">
                             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Gözləmədə</option>
                             <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Hazırlanır (Paketləmə)</option>
                             <option value="on_shipping" {{ $order->status == 'on_shipping' ? 'selected' : '' }}>Kuryerdə (Yolda)</option>
@@ -76,7 +80,8 @@
                             <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Ləğv edildi</option>
                             <option value="returned" {{ $order->status == 'returned' ? 'selected' : '' }}>Geri qaytarıldı</option>
                         </select>
-                        <button type="submit" class="btn btn-primary w-100">Yenilə</button>
+
+                        <button type="submit" class="btn btn-primary custom-btn-brand w-100">Yenilə</button>
                     </form>
                 </div>
             </div>

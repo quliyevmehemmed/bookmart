@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    @stack('styles')
 </head>
 
 <body>
@@ -87,7 +88,7 @@
         <x-nav-mobil />
 
     </div>
-    <main class="">
+    <main class="min-h-96">
         @yield('content')
     </main>
     <footer class="bg-cover bg-[position:50%_100%] text-white" style="background-image: url('/img/footer.webp')">
@@ -197,41 +198,43 @@
             <div></div>
         </div>
     </footer> -->
+    <script>
+        function toggleMenu(isOpen) {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+
+            if (isOpen) {
+                menu.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Ekranın arxada sürüşməsini bağlayır
+            } else {
+                menu.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function switchTab(tabName) {
+            const melumatTab = document.getElementById('tab-melumat');
+            const bolmelerTab = document.getElementById('tab-bolmeler');
+            const btnMelumat = document.getElementById('btn-melumat');
+            const btnBolmeler = document.getElementById('btn-bolmeler');
+
+            if (tabName === 'melumat') {
+                melumatTab.classList.replace('hidden', 'block');
+                bolmelerTab.classList.replace('block', 'hidden');
+                btnMelumat.classList.add('border-indigo-900', 'bg-gray-100');
+                btnBolmeler.classList.remove('border-indigo-900', 'bg-gray-100');
+            } else {
+                bolmelerTab.classList.replace('hidden', 'block');
+                melumatTab.classList.replace('block', 'hidden');
+                btnBolmeler.classList.add('border-indigo-900', 'bg-gray-100');
+                btnMelumat.classList.remove('border-indigo-900', 'bg-gray-100');
+            }
+        }
+    </script>
+    @stack('scripts')
+
 </body>
-<script>
-    function toggleMenu(isOpen) {
-        const menu = document.getElementById('mobile-menu');
-        const overlay = document.getElementById('overlay');
-
-        if (isOpen) {
-            menu.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Ekranın arxada sürüşməsini bağlayır
-        } else {
-            menu.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-    }
-
-    function switchTab(tabName) {
-        const melumatTab = document.getElementById('tab-melumat');
-        const bolmelerTab = document.getElementById('tab-bolmeler');
-        const btnMelumat = document.getElementById('btn-melumat');
-        const btnBolmeler = document.getElementById('btn-bolmeler');
-
-        if (tabName === 'melumat') {
-            melumatTab.classList.replace('hidden', 'block');
-            bolmelerTab.classList.replace('block', 'hidden');
-            btnMelumat.classList.add('border-indigo-900', 'bg-gray-100');
-            btnBolmeler.classList.remove('border-indigo-900', 'bg-gray-100');
-        } else {
-            bolmelerTab.classList.replace('hidden', 'block');
-            melumatTab.classList.replace('block', 'hidden');
-            btnBolmeler.classList.add('border-indigo-900', 'bg-gray-100');
-            btnMelumat.classList.remove('border-indigo-900', 'bg-gray-100');
-        }
-    }
-</script>
 
 </html>

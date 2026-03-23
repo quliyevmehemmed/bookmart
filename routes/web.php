@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/product/{slug}', [FrontendController::class, 'show'])->name('show.detail');
 
 // 2. İstifadəçi Dashboard (Breeze-in standart paneli)
 Route::get('/account', function () {
@@ -34,6 +35,7 @@ Route::get('/panel', function () {
 })->middleware(['auth']);
 
 // 4. Məhsulların (Kitabların) İdarə Edilməsi
+Route::get('admin/products/category/{categoryId}', [ProductController::class, 'index'])->name('admin.products.category');
 Route::resource('admin/products', ProductController::class)->middleware(['auth']);
 
 // 5. Profil tənzimləmələri (Breeze-in standart marşrutları)
@@ -52,7 +54,6 @@ Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.
 Route::delete('admin/messages/{id}', [ContactController::class, 'destroy'])->name('admin.messages.destroy');
 Route::patch('/admin/messages/{id}/read', [ContactController::class, 'markAsRead'])->name('admin.messages.read');
 
-Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('admin.category');
 
 
 
@@ -61,6 +62,7 @@ Route::delete('admin/orders/{id}', [OrederController::class, 'destroy'])->name('
 Route::get('admin/orders/{order}', [OrederController::class, 'show'])->name('admin.orders.show');
 Route::put('admin/orders/{order}', [OrederController::class, 'update'])->name('admin.orders.update');
 
+Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('admin.category');
 Route::resource('admin/categories', AdminCategoryController::class);
 
 // Auth (Login, Register, Logout) marşrutlarını yükləyir

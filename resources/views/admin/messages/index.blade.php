@@ -15,7 +15,7 @@
             <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Oxunmamış</option>
             <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Oxunmuş</option>
         </select>
-        <button type="submit" class="btn btn-primary">Filtrlə</button>
+        <button type="submit" class="btn text-white !bg-color-brand">Filtrlə</button>
         <a href="{{ route('admin.messages') }}" class="btn btn-secondary">Təmizlə</a>
     </form>
     <table class="table">

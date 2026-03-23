@@ -12,9 +12,35 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, $categoryId = null)
     {
-        //
+        $query = Product::query();
+
+        if ($categoryId) {
+
+            $category = Category::find($categoryId);
+
+            if ($category->parent_id == null) {
+
+                $query->where(function ($q) use ($categoryId) {
+                    // 1. Birbaşa həmin kateqoriyaya aid olan məhsullar
+                    $q->where('category_id', $categoryId)
+                        // 2. VEYA kateqoriyasının parent_id-si həmin ID olan məhsullar
+                        ->orWhereHas('category', function ($q) use ($categoryId) {
+                            $q->where('parent_id', $categoryId);
+                        });
+                });
+            } else {
+                $query->where('category_id', $categoryId);
+            }
+        }
+
+        $products = $query->with('category')->latest()->paginate(20);
+        $categories = Category::whereNull('parent_id')->with('subcategories')->get();
+
+
+
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     /**
@@ -25,7 +51,7 @@ class ProductController extends Controller
         // Formada kateqoriyaları seçmək üçün hamısını göndəririk
         $categories = Category::all();
         return view('admin.products.create', compact('categories'));
-    }   
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,7 +64,7 @@ class ProductController extends Controller
             'author' => 'required',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Maksimum 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         // 2. Bütün məlumatları massivə yığırıq
@@ -51,7 +77,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('uploads/products'), $imageName);
-            $data['image'] = 'uploads/products/' . $imageName;
+            $data['image'] = $imageName;
         }
 
         // 5. BAZAYA YAZIRIQ (Bütün sütunlar bura daxildir)
