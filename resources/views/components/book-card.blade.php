@@ -1,15 +1,17 @@
-<a href="{{ route('show.detail', $book->slug)}}">
+<a href="{{ route('show.detail', $book->slug)}}"
+    @click="if (!isHovered && window.innerWidth < 1024) { $event.preventDefault(); isHovered = true; }">
     <div x-data="{ isHovered: false }"
-        class="relative h-[450px]"
+        @click.away="isHovered = false"
+        class="relative min-h-[300px] sm:h-[450px]"
         @mouseenter="isHovered = true"
         @mouseleave="isHovered = false">
 
         <div class="w-full h-full bg-transparent"></div>
 
         <div
-            class="bg-white min-h-40 transition-all duration-[350ms] ease-in-out flex flex-col overflow-hidden"
+            class="bg-white  transition-all duration-[350ms] ease-in-out flex flex-col overflow-hidden"
             :class="{
-                'absolute inset-x-0 top-0 z-50 drop-shadow-xl scale-[1] -mt-2 -mx-1 p-4': isHovered,
+                'absolute inset-x-0 top-0 z-50 drop-shadow-xl scale-[1] -mt-2  p-4': isHovered,
                 'absolute inset-0 z-10 p-4': !isHovered
             }">
 
@@ -24,19 +26,22 @@
 
                 <p class="text-[10px] text-gray-400 mb-3 line-clamp-2">
                 </p>
-
                 <span class="block font-bold text-gray-800 text-lg mb-2">
-                    11 ₼
+                    {{ number_format($book->price, 0) }}
+                    <span class="ml-1 leading-none text-2xl font-medium text-[#2D2A5E]">₼</span>
                 </span>
             </div>
 
             <div x-show="isHovered"
-                x-transition:enter="opacity-0 translate-y-2"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                class="text-center pt-3 ">
-
-                <div class="m-3">
-                    <p class="text-[11px] text-gray-500 italic mb-4 line-clamp-3">
+                x-transition:enter="transition opacity ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition opacity ease-in duration-300"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="text-center pt-3">
+                <div class="p-3">
+                    <p class="text-sm text-gray-500 italic mb-4 line-clamp-3">
                         {{ $book->description }}
                     </p>
                 </div>

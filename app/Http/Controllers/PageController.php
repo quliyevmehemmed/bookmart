@@ -17,4 +17,8 @@ class PageController extends Controller
     public function contact() {
         return view('footer.contact-us');
     }
-}
+
+    public function sellBook() {
+        return view('sell-book');
+    }
+    }

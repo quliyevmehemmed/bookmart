@@ -47,7 +47,6 @@
             </h1>
 
             <div class="flex items-center space-x-3 mb-2">
-                {{-- Əgər köhnə qiymət varsa və indiki qiymətdən böyükdürsə göstər --}}
                 @if($product->old_price && $product->old_price > $product->price)
                 <span class="text-lg text-gray-400 line-through font-light flex items-center">
                     {{ number_format($product->old_price, 0) }}

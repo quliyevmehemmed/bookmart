@@ -6,18 +6,16 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
-
-
-// 1. Ana Səhifə (Bokmartin görünəcəyi yer)
-
+ 
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/product/{slug}', [FrontendController::class, 'show'])->name('show.detail');
+Route::get('/products/{slug?}', [ControllersProductController::class, 'index'])->name('products.index');
 
 // 2. İstifadəçi Dashboard (Breeze-in standart paneli)
 Route::get('/account', function () {
@@ -48,6 +46,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/about-us', [PageController::class, 'about'])->name('about-us');
 Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact-us');
+Route::get('/kitabini-sat', [PageController::class, 'sellBook'])->name('sell-book');
 
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');

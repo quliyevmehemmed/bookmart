@@ -23,4 +23,11 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
+
+    public function products()
+    {
+        // Əgər Product modelin fərqli namespace-dədirsə (məsələn App\Models\Product), 
+        // ona uyğun yazıldığından əmin ol.
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

@@ -32,8 +32,7 @@ class ContactController extends Controller
 
         if ($request->filled('status')) {
             $query->where('is_read', $request->status);
-        }
-        else {
+        } else {
             $query->where('is_read', '0');
         }
 
@@ -50,11 +49,11 @@ class ContactController extends Controller
         return back()->with('success', 'Mesaj silindi!');
     }
 
-    public function markAsRead($id) {
+    public function markAsRead($id)
+    {
         $message = Contact::findOrFail($id);
-        $message->update(['is_read' => 1 ]);
+        $message->update(['is_read' => 1]);
 
         return back()->with('success', 'Mesaj oxundu olaraq işarələndi.');
     }
-
 }

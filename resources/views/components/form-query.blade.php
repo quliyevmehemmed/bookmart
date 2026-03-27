@@ -1,10 +1,12 @@
+@props(['type' => 'contact'])
+
 <div class="border-l-0 md:border-l border-gray-200 md:pl-16">
     <h2 class="text-2xl font-bold text-gray-800 mb-8 tracking-wide">SORĞU GÖNDƏR</h2>
 
     <form action="{{ route('contact.store') }}" method="POST" class="space-y-4">
         @csrf
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="hidden" name="type" value="contact">
+            <input type="hidden" name="type" value="{{ $type }}">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Adınız</label>
                 <input type="text" name="name" value="{{ old('name') }}" class="w-full border border-gray-400 p-2 focus:outline-none focus:border-blue-500">

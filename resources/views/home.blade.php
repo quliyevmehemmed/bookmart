@@ -79,11 +79,7 @@
             <a class="font-poppins underline mt-10" href="">HAMISINA BAX</a>
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ">
-        @foreach($products as $product)
-        <x-book-card :book="$product" />
-        @endforeach
-    </div>
+        
 </section>
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>

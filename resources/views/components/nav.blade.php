@@ -1,6 +1,6 @@
 <div class="hidden  max-w-[1200px] gap-4 px-4 mx-auto lg:flex">
 
-    <div class="relative inline-block group">
+    <div class="relative inline-block group z-50 ">
 
         <button class="flex items-center justify-between w-64 bg-color-brand text-white px-4 py-3 rounded-t-sm font-bold tracking-wide">
             <div class="flex items-center gap-3">
@@ -22,7 +22,7 @@
             @php $hasSub = $category->subcategories->isNotEmpty(); @endphp
 
             <li class="relative group/item border-b border-gray-100">
-                <a href="#" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('products.index', $category->slug) }}" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
                     {{$category->name}}
                     @if ($hasSub)
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,13 +36,14 @@
                     group-hover/item:opacity-100 group-hover/item:visible group-hover/item:translate-x-0">
 
                     @foreach ($category->subcategories as $sub )
-                    <li><a href="#" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">{{$sub->name}}</a></li>
+                    <li><a href="{{ route('products.index', $sub->slug) }}" class="block px-6 py-3 text-sm text-gray-700 hover:bg-gray-50">{{$sub->name}}</a></li>
                     @endforeach
                 </ul>
                 @endif
             </li>
             @endforeach
         </ul>
+
     </div>
     <nav class="flex items-center  bg-white font-sans">
 
@@ -54,7 +55,7 @@
             Kitab sifariş et
         </a>
 
-        <a href="#" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="{{ route('sell-book') }}" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
             Kitabını sat
         </a>
 

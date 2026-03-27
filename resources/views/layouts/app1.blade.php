@@ -39,16 +39,16 @@
 
         <header class="h-16  border-b px-4 w-full lg:hidden  flex items-center justify-between">
             <div>
-                <button onclick="toggleMenu(true)">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 24" stroke-width="1.3" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                <button id="mobileMenuOpenBtn" class="lg:hidden p-2 text-gray-700 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
             </div>
             <div>
                 <x-icons.logo width="w-44" />
             </div>
-            <div>
+            <div class="relative">
                 <a href=""><x-icons.basket /></a>
             </div>
         </header>
@@ -88,7 +88,7 @@
         <x-nav-mobil />
 
     </div>
-    <main class="min-h-96">
+    <main class="min-h-96 mb-24">
         @yield('content')
     </main>
     <footer class="bg-cover bg-[position:50%_100%] text-white" style="background-image: url('/img/footer.webp')">
