@@ -39,8 +39,8 @@
             <ul class="text-[13px] text-[#333333] font-medium tracking-wide">
                 <li class="border-b border-gray-100"><a href="#" class="block py-4 px-4 uppercase hover:text-[#302e52]">Tezliklə</a></li>
                 <li class="border-b border-gray-100"><a href="#" class="block py-4 px-4 uppercase hover:text-[#302e52]">Kitab sifariş et</a></li>
-                <li class="border-b border-gray-100"><a href="{{ route('sell-book') }}" class="block py-4 px-4 uppercase hover:text-[#302e52]">Kitabını sat</a></li>
-                <li class="border-b border-gray-100"><a href="#" class="block py-4 px-4 uppercase hover:text-[#302e52]">Kitabını çap et</a></li>
+                <li class="border-b border-gray-100"><a href="{{ route('sell.book') }}" class="block py-4 px-4 uppercase hover:text-[#302e52]">Kitabını sat</a></li>
+                <li class="border-b border-gray-100"><a href="{{ route('print.book') }}" class="block py-4 px-4 uppercase hover:text-[#302e52]">Kitabını çap et</a></li>
                 <li class="border-b border-gray-100"><a href="#" class="block py-4 px-4 uppercase hover:text-[#302e52]">Hazırlıq kursuna qoşul</a></li>
             </ul>
         </div>

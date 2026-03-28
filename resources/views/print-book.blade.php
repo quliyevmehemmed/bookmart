@@ -2,11 +2,11 @@
 
 @section('content')
 
-<x-page-banner title="KİTABINI SAT"  >
+<x-page-banner title="KİTABINI ÇAP ET" >
     <div class="text-[13px] text-white font-medium w-full md:w-auto text-center md:text-left">
         <a href="/" class="text-white transition-colors">ƏSAS SƏHİFƏ &nbsp;</a>/
 
-        <span class="text-white font-semibold">&nbsp;KİTABINI SAT</span>
+        <span class="text-white font-semibold">&nbsp;KITABINI ÇAP ET</span>
     </div>
 </x-page-banner>
 
@@ -16,14 +16,14 @@
 
         <div class="w-full md:w-1/2 flex justify-center">
             <div class="relative w-full max-w-[500px]">
-                <img src="img/kitabi-sat.webp" alt="Kitabını sat illüstrasiya" class="w-full h-auto">
+                <img src="img/cap-et.webp" alt="Kitabını sat illüstrasiya" class="w-full h-auto">
             </div>
         </div>
 
         <div class="w-full md:w-1/2 p-4">
             <div class="max-w-[550px]">
                 <h2 class="text-2xl lg:text-5xl font-bold text-[#353154] mb-4 uppercase tracking-tight">
-                    KİTABINI SAT
+                    KITABINI ÇAP ET
                 </h2>
 
                 <div class="mb-8">
@@ -34,17 +34,17 @@
 
                 <div class="space-y-6 text-[#4a4a4a] text-2xl lg:text-2xl  leading-relaxed font-medium">
                     <p>
-                        Dəyərli müəllif! Müəllifi olduğunuz kitabı bizim onlayn mağazamızda satışa təqdim edə bilərsiniz.
-                        Müəlliflik hüquqları Azərbaycan Respublikasının Qanunvericiliyinə uyğun olaraq qorunmaqdadır.
-                        Kitabınız sizin müəyyən etdiyiniz qiymətdə (kitabın arxasında müəyyən edilmiş konkret qiymət və ya müqavilə yolu ilə) onlayn mağazamızda satışa çıxarılacaqdır.
-                        Sizə yaradıcılıq fəaliyyətinizdə uğurlar arzu edirik!
+                        Əl yazmalarınız var? Kitabınızın üz qabığı və daxili dizaynını formalaşdırmaq 
+                        sizə çətinlik yaradır? Kitabınızı dərc etmək və satışını həyata keçirmək 
+                        istəyirsiniz? Elə isə dərhal bizə müraciət edin. Ən uyğun formada və qısa 
+                        müddətdə kitabınızın işıq üzü görməsinə dəstək olmaqdan məmnunluq duyarıq!
                     </p>
                 </div>
             </div>
         </div>
 
     </div>
-    <x-form-query type="sell_book" />
+    <x-form-query type="print_book" />
 </section>
 
 @endsection

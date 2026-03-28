@@ -55,11 +55,11 @@
             Kitab sifariş et
         </a>
 
-        <a href="{{ route('sell-book') }}" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="{{ route('sell.book') }}" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
             Kitabını sat
         </a>
 
-        <a href="#" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
+        <a href="{{ route('print.book') }}" class="text-[#333333] font-bold text-[12px] tracking-wider uppercase px-3 py-3 hover:opacity-80 rounded-full transition-all hover:bg-[#c3c4d5]">
             Kitabını çap et
         </a>
 

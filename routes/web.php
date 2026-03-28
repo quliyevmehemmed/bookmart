@@ -46,7 +46,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/about-us', [PageController::class, 'about'])->name('about-us');
 Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact-us');
-Route::get('/kitabini-sat', [PageController::class, 'sellBook'])->name('sell-book');
+Route::get('/kitabini-sat', [PageController::class, 'sellBook'])->name('sell.book');
+Route::get('/kitabini-cap-et', [PageController::class, 'printBook'])->name('print.book');
 
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');

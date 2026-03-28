@@ -4,48 +4,24 @@
 
 @if(isset($category))
 @php
-    $parentCategory = $category->parent_id ? $category->parent : $category;
-    $siblingCategories = $parentCategory->subcategories;
+$parentCategory = $category->parent_id ? $category->parent : $category;
+$siblingCategories = $parentCategory->subcategories;
 @endphp
 
-<div class="bg-color-brand w-full py-12 lg:py-24 -mt-[1px] px-4">
-    <div class="max-w-[1200px] mx-auto flex flex-col items-center">
+<x-page-banner :title="$category->name" :showBack="true">
 
-        <div class="flex items-center text-white mb-6 lg:mb-10">
-            {{-- Əgər əvvəlki səhifə varsa (və ya həmişə görünsün istəyirsənsə) --}}
-            <a href="{{ url()->previous() }}" class="text-3xl mr-4 hidden lg:block hover:text-gray-300 transition-colors">
-                &larr;
-            </a>
+    @foreach($siblingCategories as $sibling)
+    <a href="{{ route('products.index', $sibling->slug) }}" class="flex flex-col items-start lg:items-center group">
+        <span class="text-white text-[13px] font-bold tracking-wider uppercase transition-opacity duration-300 {{ $category->id == $sibling->id ? 'opacity-100' : 'opacity-60 group-hover:opacity-100' }}">
+            {{ $sibling->name }}
+        </span>
+        <span class="text-[#a4a0c5] text-[12px] mt-1 font-medium">
+            {{ $sibling->products_count ?? $sibling->products->count() }} Məhsul
+        </span>
+    </a>
+    @endforeach
 
-            <h1 class="text-4xl lg:text-6xl font-poppins text-center font-bold tracking-wide">{{ $category->name }}</h1>
-        </div>
-        
-        <button id="mobileMenuBtn" class="lg:hidden flex items-center justify-center gap-2 text-white/90 text-[16px] mb-4 hover:text-white transition-colors focus:outline-none">
-            Bölmələr
-            <svg id="mobileMenuArrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-        </button>
-
-        <div id="categoriesContainer" class="w-full lg:w-auto overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out max-h-0 opacity-0 lg:max-h-[1000px] lg:opacity-100 lg:overflow-visible">
-            
-            <div class="flex flex-col lg:flex-row flex-wrap justify-start lg:justify-center items-start lg:items-center gap-x-10 gap-y-6 pt-2 pb-6 lg:py-0 w-full max-w-md lg:max-w-none  px-4 lg:px-0">
-                @foreach($siblingCategories as $sibling)
-                <a href="{{ route('products.index', $sibling->slug) }}" class="flex flex-col items-start lg:items-center group">
-                    <span class="text-white text-[13px] font-bold tracking-wider uppercase transition-opacity duration-300 {{ $category->id == $sibling->id ? 'opacity-100' : 'opacity-60 group-hover:opacity-100' }}">
-                        {{ $sibling->name }}
-                    </span>
-                    <span class="text-[#a4a0c5] text-[12px] mt-1 font-medium">
-                        {{ $sibling->products_count ?? $sibling->products->count() }} Məhsul
-                    </span>
-                </a>
-                @endforeach
-            </div>
-
-        </div>
-
-    </div>
-</div>
+</x-page-banner>
 
 <div class="max-w-[1200px] mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center border-b border-gray-100">
 
@@ -98,12 +74,12 @@
         const container = document.getElementById('categorie sContainer');
         const arrow = document.getElementById('mobileMenuArrow');
 
-        if(btn && container) {
+        if (btn && container) {
             btn.addEventListener('click', function() {
                 if (container.classList.contains('max-h-0')) {
                     // Açılır
                     container.classList.remove('max-h-0', 'opacity-0');
-                    container.classList.add('max-h-[1000px]', 'opacity-100'); 
+                    container.classList.add('max-h-[1000px]', 'opacity-100');
                     arrow.classList.add('rotate-180');
                 } else {
                     // Bağlanır

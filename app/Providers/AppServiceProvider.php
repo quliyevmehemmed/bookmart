@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['components.nav', 'components.nav-mobil' ], function ($view) {
+        View::composer(['components.nav', 'components.nav-mobil', 'sell-book' ], function ($view) {
             $categories = Category::whereNull('parent_id')->with('subcategories')->get();
 
             $view->with('categories', $categories);

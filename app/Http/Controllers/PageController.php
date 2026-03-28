@@ -21,4 +21,9 @@ class PageController extends Controller
     public function sellBook() {
         return view('sell-book');
     }
+
+    public function printBook() {
+        return view('print-book');
+    }
+
     }
