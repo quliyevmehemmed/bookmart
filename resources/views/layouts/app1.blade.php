@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'bokmart' ) }} ~ bookmart.az</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -78,7 +79,7 @@
                     <a class="mx-2" href="{{ route('login') }}"><x-icons.profile /></a>
                     @endauth
 
-                    <a class="mx-2" href=""><x-icons.favorites /></a>
+                    <a class="mx-2" href="{{ route('wishlist') }}"><x-icons.favorites /></a>
                     <a class="relative mx-2" href=""><x-icons.basket /></a>
                     <a class="mx-2" href="">9</a>
                 </div>
@@ -199,6 +200,55 @@
         </div>
     </footer> -->
     <script>
+        (function () {
+            const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
+            document.addEventListener('click', async (event) => {
+                const button = event.target.closest('[data-wishlist]');
+                if (!button) return;
+
+                event.preventDefault();
+
+                const inWishlist = button.dataset.inWishlist === '1';
+                const url = inWishlist ? button.dataset.urlRemove : button.dataset.urlAdd;
+                const method = inWishlist ? 'DELETE' : 'POST';
+
+                try {
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'X-CSRF-TOKEN': token,
+                            'Accept': 'application/json',
+                        },
+                    });
+
+                    if (!response.ok) throw new Error('Request failed');
+
+                    const data = await response.json();
+                    const nowInWishlist = Boolean(data.in_wishlist);
+
+                    button.dataset.inWishlist = nowInWishlist ? '1' : '0';
+                    const onClass = button.dataset.wishlistOn || 'text-red-500';
+                    const offClass = button.dataset.wishlistOff || 'text-gray-600';
+                    button.classList.toggle(onClass, nowInWishlist);
+                    button.classList.toggle(offClass, !nowInWishlist);
+
+                    const svg = button.querySelector('svg');
+                    if (svg) {
+                        svg.setAttribute('fill', nowInWishlist ? 'currentColor' : 'none');
+                        svg.classList.toggle('fill-current', nowInWishlist);
+                    }
+
+                    const label = button.querySelector('[data-wishlist-label]');
+                    if (label) {
+                        label.textContent = nowInWishlist ? 'Sevimlilerden cixar' : 'Istek siyahisina elave et';
+                    }
+                } catch (e) {
+                    // Silent fail to avoid blocking UI; refresh still works if user reloads.
+                }
+            });
+        })();
+
         function toggleMenu(isOpen) {
             const menu = document.getElementById('mobile-menu');
             const overlay = document.getElementById('overlay');

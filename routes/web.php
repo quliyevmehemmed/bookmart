@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
  
@@ -48,6 +49,10 @@ Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact-us');
 Route::get('/kitabini-sat', [PageController::class, 'sellBook'])->name('sell.book');
 Route::get('/kitabini-cap-et', [PageController::class, 'printBook'])->name('print.book');
+
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+Route::post('/wishlist/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::delete('/wishlist/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');

@@ -99,12 +99,23 @@
                     SƏBƏTƏ AT
                 </button>
             </div>
-
-            <button class="flex items-center space-x-2 text-gray-600 hover:text-red-500 transition-colors mb-8 group">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:fill-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            @php
+                $inWishlist = in_array($product->id, session('wishlist', []), true);
+            @endphp
+            <button
+                type="button"
+                data-wishlist
+                data-in-wishlist="{{ $inWishlist ? '1' : '0' }}"
+                data-url-add="{{ route('wishlist.add', $product) }}"
+                data-url-remove="{{ route('wishlist.remove', $product) }}"
+                data-wishlist-on="text-red-500"
+                data-wishlist-off="text-gray-600"
+                class="flex items-center space-x-2 {{ $inWishlist ? 'text-red-500' : 'text-gray-600 hover:text-red-500' }} transition-colors group mb-8"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {{ $inWishlist ? 'fill-current' : 'group-hover:fill-red-500' }}" fill="{{ $inWishlist ? 'currentColor' : 'none' }}" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
-                <span class="text-sm font-medium">İstək siyahısı</span>
+                <span class="text-sm font-medium" data-wishlist-label>{{ $inWishlist ? 'Sevimlilerden cixar' : 'Istek siyahisina elave et' }}</span>
             </button>
 
             <hr class="border-gray-100 mb-6">

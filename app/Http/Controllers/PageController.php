@@ -26,4 +26,4 @@ class PageController extends Controller
         return view('print-book');
     }
 
-    }
+}
