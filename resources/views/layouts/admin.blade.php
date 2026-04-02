@@ -86,7 +86,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('products.index')}}"  data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="{{ route('admin.products.index')}}"  data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Products</span>
@@ -291,7 +291,7 @@
                                  aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
+                                <span class="badge badge-danger badge-counter"></span>
                             </a>
                             <!-- Dropdown - Messages -->
                            

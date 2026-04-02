@@ -50,7 +50,7 @@
     <div class="flex justify-between items-center my-6">
         <h1 class="text-2xl font-bold">Books</h1>
 
-        <a href="{{ route('products.create') }}"
+        <a href="{{ route('admin.products.create') }}"
             class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             + Add Book
         </a>
@@ -81,17 +81,17 @@
 
                 <div class="flex justify-between mt-4">
 
-                    <a href="{{ route('products.show',$product->slug) }}"
+                    <a href="{{ route('admin.products.show',$product->slug) }}"
                         class="text-blue-600 hover:underline text-sm">
                         View
                     </a>
 
-                    <a href="{{ route('products.edit',$product->id) }}"
+                    <a href="{{ route('admin.products.edit',$product->id) }}"
                         class="text-yellow-600 hover:underline text-sm">
                         Edit
                     </a>
 
-                    <form action="{{ route('products.destroy',$product->id) }}" method="POST">
+                    <form action="{{ route('admin.products.destroy',$product->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
 

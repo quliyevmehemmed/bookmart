@@ -6,8 +6,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\ProductController as ControllersProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -34,8 +37,8 @@ Route::get('/panel', function () {
 })->middleware(['auth']);
 
 // 4. Məhsulların (Kitabların) İdarə Edilməsi
-Route::get('admin/products/category/{categoryId}', [ProductController::class, 'index'])->name('admin.products.category');
-Route::resource('admin/products', ProductController::class)->middleware(['auth']);
+Route::get('admin/products/category/{categoryId}', [ControllersProductController::class, 'index'])->name('admin.products.category');
+Route::resource('admin/products', AdminProductController::class)->names('admin.products')->middleware(['auth']);
 
 // 5. Profil tənzimləmələri (Breeze-in standart marşrutları)
 Route::middleware('auth')->group(function () {
@@ -54,13 +57,20 @@ Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
 Route::post('/wishlist/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
 Route::delete('/wishlist/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 
+
+Route::post('/card/add/{id}', [BasketController::class, 'add'])->name('card.add');
+Route::get('/card', [BasketController::class, 'index'])->name('card.index');
+Route::post('/card/update', [BasketController::class, 'update'])->name('card.update');
+Route::delete('/card/remove/{id}', [BasketController::class, 'remove'])->name('card.remove');
+Route::post('/card/shipping', [BasketController::class, 'updateShipping'])->name('basket.updateShipping');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('order.store');
+
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');
 Route::delete('admin/messages/{id}', [ContactController::class, 'destroy'])->name('admin.messages.destroy');
 Route::patch('/admin/messages/{id}/read', [ContactController::class, 'markAsRead'])->name('admin.messages.read');
-
-
-
 
 Route::get('/admin/orders', [OrederController::class, 'index'])->name('admin.orders');
 Route::delete('admin/orders/{id}', [OrederController::class, 'destroy'])->name('admin.orders.destroy');

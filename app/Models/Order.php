@@ -12,6 +12,7 @@ class Order extends Model
         'order_number',
         'full_name',
         'phone',
+        'email',
         'address',
         'shipping_method',
         'shipping_price',

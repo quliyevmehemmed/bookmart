@@ -8,5 +8,5 @@
     </svg>
 </span>
 <span class="absolute w-3.5 h-3.5 flex justify-center items-center text-[8px] rounded-full bg-color-brand right-[-5px] top-[-3px]">
-    <div class=" font-poppins text-white">0</div>
+    <div class=" cart-count font-poppins text-white">{{ count(session('card', [])) }}</div>
 </span>

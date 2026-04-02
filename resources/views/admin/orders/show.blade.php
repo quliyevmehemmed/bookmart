@@ -26,7 +26,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('storage/' . $item->book->image) }}" width="50" class="rounded me-3">
+                                        <img src="{{ asset('uploads/products/' . $item->product->image) }}" width="50" class="rounded me-3">
                                         <span class="fw-bold">{{ $item->product->title }}</span>
                                     </div>
                                 </td>

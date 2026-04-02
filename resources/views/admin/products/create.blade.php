@@ -7,7 +7,7 @@
         <a href="{{ route('products.index') }}" class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded transition">Siyahıya qayıt</a>
     </div>
 
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="p-8">
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="p-8">
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

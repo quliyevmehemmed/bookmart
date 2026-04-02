@@ -50,7 +50,9 @@
                 <x-icons.logo width="w-44" />
             </div>
             <div class="relative">
-                <a href=""><x-icons.basket /></a>
+                <a href="{{ route('card.index') }}">
+                    <x-icons.basket />
+                </a>
             </div>
         </header>
         <!-- header desktop -->
@@ -80,8 +82,18 @@
                     @endauth
 
                     <a class="mx-2" href="{{ route('wishlist') }}"><x-icons.favorites /></a>
-                    <a class="relative mx-2" href=""><x-icons.basket /></a>
-                    <a class="mx-2" href="">9</a>
+                    <a class="relative mx-2" href="{{ route('card.index') }}"><x-icons.basket /></a>
+                    <a class="mx-2" href="">
+                        <span id="header-total">
+                            @php
+                            $total = 0;
+                            foreach(session('card', []) as $item) {
+                            $total += $item['price'] * $item['quantity'];
+                            }
+                            @endphp
+                            {{ $total }} ₼
+                        </span>
+                    </a>
                 </div>
             </div>
         </header>
@@ -200,7 +212,7 @@
         </div>
     </footer> -->
     <script>
-        (function () {
+        (function() {
             const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
             document.addEventListener('click', async (event) => {
@@ -282,6 +294,172 @@
                 btnMelumat.classList.remove('border-indigo-900', 'bg-gray-100');
             }
         }
+
+
+
+        document.addEventListener('click', async (event) => {
+            const cartBtn = event.target.closest('[data-cart-add]');
+            if (!cartBtn) return;
+
+            event.preventDefault();
+            const url = cartBtn.dataset.cartAdd;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quantity: 1
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    alert('Məhsul səbətə əlavə edildi!');
+                    // Səbət sayını yeniləmək üçün (əgər header-də yer ayırmısansa)
+                    const cartCounter = document.querySelector('.cart-count');
+                    if (cartCounter) cartCounter.textContent = data.cart_count;
+                }
+            } catch (error) {
+                console.error('Xəta baş verdi:', error);
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            // PLUS və ya MINUS düymələrini tuturuq
+            const btn = e.target.closest('.quantity-btn');
+            if (!btn) return;
+
+            const row = btn.closest('tr') || btn.closest('.flex'); // Sətiri tapırıq
+            const input = row.querySelector('.quantity-input');
+            const id = input.dataset.id;
+            let currentQty = parseInt(input.value);
+
+            // Sayı artır və ya azalt
+            if (btn.classList.contains('plus')) {
+                currentQty++;
+            } else if (btn.classList.contains('minus') && currentQty > 1) {
+                currentQty--;
+            }
+
+            input.value = currentQty; // Ekranda dərhal dəyişsin
+
+            // İndi Serverə (Laravel) xəbər verək
+            updateCart(id, currentQty);
+        });
+
+        async function updateCart(id, qty) {
+            try {
+                const response = await fetch("{{ route('card.update') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: id,
+                        quantity: qty
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Sətirdəki məbləği yenilə
+                    document.getElementById(`subtotal-${id}`).textContent = data.subtotal;
+                    // Sağ tərəfdəki ümumi məbləği yenilə
+                    document.getElementById('grand-total').textContent = data.grand_total;
+
+                    const headerTotal = document.getElementById('header-total');
+                    if (headerTotal) headerTotal.textContent = data.grand_total;
+                    // Headerdəki səbət sayını yenilə
+                    document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
+                }
+            } catch (error) {
+                console.error('Xəta:', error);
+            }
+
+        }
+
+
+        document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+            radio.addEventListener('change', async function() {
+                const method = this.getAttribute('data-method'); // data-method-u oxuyuruq
+                const price = this.getAttribute('data-price'); // data-price-ı oxuyuruq
+
+                try {
+                    const response = await fetch("{{ route('basket.updateShipping') }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            method,
+                            price
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        console.log("Sessiya yeniləndi: " + method);
+                    }
+                } catch (error) {
+                    console.error("Xəta:", error);
+                }
+            });
+        });
+
+
+        // silinme remove
+
+        document.addEventListener('click', async (e) => {
+            const removeBtn = e.target.closest('.remove-from-cart');
+            if (!removeBtn) return;
+
+            const id = removeBtn.dataset.id;
+            const url = removeBtn.dataset.url;
+            const row = removeBtn.closest('tr'); // Cədvəldəki sətri tapırıq
+
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    row.remove();
+
+                    document.getElementById('grand-total').textContent = data.grand_total;
+
+                    // BAX BU SƏTİR YUXARIDAKI (HEADER) QİYMƏTİ DƏYİŞİR:
+                    const headerTotal = document.getElementById('header-total');
+                    if (headerTotal) headerTotal.textContent = data.grand_total;
+
+                    document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
+
+                    if (data.count === 0) {
+                        location.reload();
+                    } else {
+                        calculateFinalTotal();
+                    }
+                }
+            } catch (error) {
+                console.error('Silmə zamanı xəta:', error);
+            }
+        });
     </script>
     @stack('scripts')
 
