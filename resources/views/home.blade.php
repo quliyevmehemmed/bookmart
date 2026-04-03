@@ -76,8 +76,49 @@
             <h2 class="md:text-4xl text-2xl font-poppins text-center font-semibold">Dövlət orqanları üzrə dərsliklər</h2>
             <div class="border w-10 text-center  "></div>
             <p class="text-3xl font-poppins font-medium">Bookmart</p>
-            <a class="font-poppins underline mt-10" href="">HAMISINA BAX</a>
+            <a class="font-poppins underline mt-4" href="{{ $governmentCategory ? route('products.index', $governmentCategory->slug) : route('products.index') }}">HAMISINA BAX</a>
         </div>
+
+        @if(isset($governmentProducts) && $governmentProducts->count())
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+            @foreach($governmentProducts as $book)
+            <x-book-card :book="$book" />
+            @endforeach
+        </div>
+        @endif
+    </div>
+        
+
+    <div class="mt-2">
+        <div class="flex-col flex gap-3 my-2 items-center">
+            <h2 class="md:text-4xl text-2xl font-poppins text-center font-semibold">Bedii edebiyyat</h2>
+            <div class="border w-10 text-center"></div>
+            <a class="font-poppins underline mt-4" href="{{ $literatureCategory ? route('products.index', $literatureCategory->slug) : route('products.index') }}">HAMISINA BAX</a>
+        </div>
+
+        @if(isset($literatureProducts) && $literatureProducts->count())
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+            @foreach($literatureProducts as $book)
+            <x-book-card :book="$book" />
+            @endforeach
+        </div>
+        @endif
+    </div>
+
+    <div class="mt-2">
+        <div class="flex-col flex gap-3 my-2 items-center">
+            <h2 class="md:text-4xl text-2xl font-poppins text-center font-semibold">Test toplulari</h2>
+            <div class="border w-10 text-center"></div>
+            <a class="font-poppins underline mt-4" href="{{ $testCategory ? route('products.index', $testCategory->slug) : route('products.index') }}">HAMISINA BAX</a>
+        </div>
+
+        @if(isset($testProducts) && $testProducts->count())
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+            @foreach($testProducts as $book)
+            <x-book-card :book="$book" />
+            @endforeach
+        </div>
+        @endif
     </div>
         
 </section>
@@ -86,3 +127,5 @@
 @endpush
 
 @endsection
+
+

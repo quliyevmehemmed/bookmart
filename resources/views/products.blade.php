@@ -79,10 +79,10 @@ $siblingCategories = $parentCategory->subcategories;
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById('mobileMenuBtn');
-        const container = document.getElementById('categorie sContainer');
+        const container = document.getElementById('categoriesContainer');
         const arrow = document.getElementById('mobileMenuArrow');
 
-        if (btn && container) {
+        if (btn && container && arrow) {
             btn.addEventListener('click', function() {
                 if (container.classList.contains('max-h-0')) {
                     // Açılır

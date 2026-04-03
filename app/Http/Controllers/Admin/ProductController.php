@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -90,9 +91,14 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $product)
     {
-        //
+        $product = Product::with(['category.parent'])
+            ->where('slug', $product)
+            ->orWhere('id', $product)
+            ->firstOrFail();
+
+        return view('admin.products.detail', compact('product'));
     }
 
     /**
@@ -116,6 +122,16 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $imagePath = public_path('uploads/products/' . $product->image);
+
+        if (!empty($product->image) && File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
+        $product->delete();
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Mehsul ugurla silindi.');
     }
 }

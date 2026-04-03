@@ -72,28 +72,28 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/messages"  data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin/messages" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Messages</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/orders"  data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin/orders" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Orders</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('admin.products.index')}}"  data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="{{ route('admin.products.index')}}" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Products</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('admin.category') }}"  data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="{{ route('admin.category') }}" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Category Add</span>
@@ -288,13 +288,13 @@
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="/admin/messages" id="messagesDropdown" role="button"
-                                 aria-haspopup="true" aria-expanded="false">
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
                                 <span class="badge badge-danger badge-counter"></span>
                             </a>
                             <!-- Dropdown - Messages -->
-                           
+
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -347,17 +347,49 @@
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
+                    <div class="messages">
+                        @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+
+                        @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+
+                        @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                    </div>
                     @yield('main_content')
-                    
-                    <!-- Content Row -->
-                    
 
                     <!-- Content Row -->
 
-                    
 
                     <!-- Content Row -->
-                    
+
+
+
+                    <!-- Content Row -->
+
 
                 </div>
                 <!-- /.container-fluid -->

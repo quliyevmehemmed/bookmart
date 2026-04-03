@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('parent_id', null)->get();
 
         return view('admin.categories.create', compact('categories'));
     }
@@ -38,7 +38,7 @@ class CategoryController extends Controller
     {
 
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|string|max:255',
         ]);
 
         Category::create([
@@ -103,7 +103,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        
+
         try {
             $category->delete();
         } catch (\Exception $e) {

@@ -389,67 +389,82 @@
             }
         });
     </script>
-    <script>
+        <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const input = document.getElementById('liveSearchInput');
-            const dropdown = document.getElementById('searchDropdown');
-            const resultsContainer = document.getElementById('searchResults');
-            const viewAllContainer = document.getElementById('viewAllContainer');
-            const viewAllBtn = document.getElementById('viewAllBtn');
+            function initLiveSearch(config) {
+                const input = document.getElementById(config.inputId);
+                const dropdown = document.getElementById(config.dropdownId);
+                const resultsContainer = document.getElementById(config.resultsId);
+                const viewAllContainer = document.getElementById(config.viewAllContainerId);
+                const viewAllBtn = document.getElementById(config.viewAllBtnId);
 
-            let timeout = null;
+                if (!input || !dropdown || !resultsContainer || !viewAllContainer || !viewAllBtn) return;
 
-            input.addEventListener('input', function() {
-                clearTimeout(timeout);
-                const query = this.value.trim();
+                let timeout = null;
 
-                if (query.length < 2) {
-                    dropdown.classList.add('hidden');
-                    return;
-                }
+                input.addEventListener('input', function() {
+                    clearTimeout(timeout);
+                    const query = this.value.trim();
 
-                // Serveri yormamaq üçün yazmağı bitirəndən 300ms sonra sorğu göndəririk (Debounce)
-                timeout = setTimeout(() => {
-                    fetch(`/ajax-search?q=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            resultsContainer.innerHTML = ''; // Əvvəlki nəticələri təmizlə
+                    if (query.length < 2) {
+                        dropdown.classList.add('hidden');
+                        return;
+                    }
 
-                            if (data.length > 0) {
-                                data.forEach(product => {
-                                    // Şəkildəki kimi kart dizaynını bura yazırsan
-                                    // product.title, product.price, product.image_url və s.
-                                    const html = `
-                                    <a href="/product/${product.slug}" class="flex items-center gap-3 p-2 hover:bg-gray-50 transition">
-                                        <img src="/uploads/products/${product.image}" alt="${product.title}" class="w-12 h-16 object-cover border">
-                                        <div>
-                                            <h4 class="text-sm font-semibold text-gray-800">${product.title}</h4>
-                                            <p class="text-xs text-gray-500">${product.author || 'Yazar məlum deyil'}</p>
-                                            <p class="text-sm text-blue-600 font-bold">${product.price} ₼</p>
-                                        </div>
-                                    </a>
-                                `;
-                                    resultsContainer.insertAdjacentHTML('beforeend', html);
-                                });
+                    timeout = setTimeout(() => {
+                        fetch(`/ajax-search?q=${encodeURIComponent(query)}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                resultsContainer.innerHTML = '';
 
-                                // "Hamısına bax" linkini yeniləyirik
-                                viewAllBtn.href = `/products?q=${encodeURIComponent(query)}`;
-                                viewAllContainer.classList.remove('hidden');
-                                dropdown.classList.remove('hidden');
-                            } else {
-                                resultsContainer.innerHTML = '<p class="text-gray-500 p-2">Heç nə tapılmadı...</p>';
-                                viewAllContainer.classList.add('hidden');
-                                dropdown.classList.remove('hidden');
-                            }
-                        });
-                }, 300);
+                                if (data.length > 0) {
+                                    data.forEach(product => {
+                                        const html = `
+                                            <a href="/product/${product.slug}" class="flex items-center gap-3 p-2 hover:bg-gray-50 transition">
+                                                <img src="/uploads/products/${product.image}" alt="${product.title}" class="w-12 h-16 object-cover border">
+                                                <div>
+                                                    <h4 class="text-sm font-semibold text-gray-800">${product.title}</h4>
+                                                    <p class="text-xs text-gray-500">${product.author || 'Yazar melum deyil'}</p>
+                                                    <p class="text-sm text-blue-600 font-bold">${product.price} AZN</p>
+                                                </div>
+                                            </a>
+                                        `;
+                                        resultsContainer.insertAdjacentHTML('beforeend', html);
+                                    });
+
+                                    viewAllBtn.href = `/products?q=${encodeURIComponent(query)}`;
+                                    viewAllContainer.classList.remove('hidden');
+                                    dropdown.classList.remove('hidden');
+                                } else {
+                                    resultsContainer.innerHTML = '<p class="text-gray-500 p-2">Hec ne tapilmadi...</p>';
+                                    viewAllContainer.classList.add('hidden');
+                                    dropdown.classList.remove('hidden');
+                                }
+                            });
+                    }, 300);
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                    }
+                });
+            }
+
+            initLiveSearch({
+                inputId: 'liveSearchInput',
+                dropdownId: 'searchDropdown',
+                resultsId: 'searchResults',
+                viewAllContainerId: 'viewAllContainer',
+                viewAllBtnId: 'viewAllBtn'
             });
 
-            // Çöldə bir yerə basanda dropdown-ı bağlamaq
-            document.addEventListener('click', function(e) {
-                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.classList.add('hidden');
-                }
+            initLiveSearch({
+                inputId: 'mobileLiveSearchInput',
+                dropdownId: 'mobileSearchDropdown',
+                resultsId: 'mobileSearchResults',
+                viewAllContainerId: 'mobileViewAllContainer',
+                viewAllBtnId: 'mobileViewAllBtn'
             });
         });
     </script>
@@ -458,3 +473,4 @@
 </body>
 
 </html>
+
