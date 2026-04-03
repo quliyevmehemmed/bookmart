@@ -44,14 +44,22 @@ $siblingCategories = $parentCategory->subcategories;
             <span>24</span>
         </div>
 
-        <div class="relative">
-            <select class="appearance-none bg-transparent border-b border-gray-300 pb-1 pr-6 focus:outline-none focus:border-black cursor-pointer">
-                <option>Çeşidləmə</option>
-                <option>Ucuzdan bahaya</option>
-                <option>Bahadan ucuza</option>
-                <option>Yenilər</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-400">
+        <div class="relative inline-block">
+            <form method="GET" action="{{ url()->current() }}">
+                @if(request('q'))
+                <input type="hidden" name="q" value="{{ request('q') }}">
+                @endif
+
+                <select name="sort" onchange="this.form.submit()"
+                    class="appearance-none bg-transparent border-b border-black pb-1 pr-8 cursor-pointer focus:outline-none focus:ring-0 focus:border-black text-black">
+                    <option value="">Çeşidləmə</option>
+                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Ucuzdan bahaya</option>
+                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Bahadan ucuza</option>
+                    <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Yenilər</option>
+                </select>
+            </form>
+
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-black">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>

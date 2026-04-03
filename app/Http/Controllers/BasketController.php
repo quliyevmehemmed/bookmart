@@ -27,9 +27,15 @@ class BasketController extends Controller
 
         session()->put('card', $card);
 
+        $total = 0;
+        foreach ($card as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
         return response()->json([
             'status' => 'success',
-            'card_count' => count($card)
+            'count' => count($card),
+            'grand_total' => $total . ' ₼'
         ]);
     }
 

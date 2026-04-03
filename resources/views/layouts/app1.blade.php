@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'bokmart' ) }} ~ bookmart.az</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -61,19 +62,36 @@
                 <div>
                     <a href=""><x-icons.logo /></a>
                 </div>
-                <div>
-                    <form class="w-[500px] mx-auto">
-                        <label for="text" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Search</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <input type="text" id="search" class="block w-full p-3 border border-gray-300 text-heading text-sm rounded-base  shadow-xs placeholder:text-body" placeholder="Search" />
-                        </div>
+                <div class="relative w-full max-w-2xl mx-auto">
+                    <form action="{{ route('products.index') }}" method="GET" class="relative">
+                        <input
+                            type="text"
+                            name="q"
+                            id="liveSearchInput"
+                            value="{{ request()->get('q') }}"
+                            autocomplete="off"
+                            placeholder="Kitab və ya yazar axtar..."
+                            class="w-full border p-3 pr-10 focus:outline-none focus:ring-0 focus:shadow-sm focus:border-color-brand">
+                        <button type="submit" class="absolute right-3 top-3 text-gray-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
                     </form>
+
+                    <div id="searchDropdown" class="absolute z-50 w-full bg-white border mt-1 shadow-lg max-h-96 overflow-y-auto hidden">
+                        <div id="searchResults" class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                        </div>
+
+                        <div id="viewAllContainer" class="border-t p-3 text-center hidden">
+                            <a href="#" id="viewAllBtn" class=" font-semibold hover:underline">
+                                Bütün nəticələrə bax
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
+
                 <div class="flex items-center ">
                     @auth
                     <a class="mx-2" href="{{ route('account') }}"><x-icons.profile /></a>
@@ -81,7 +99,7 @@
                     <a class="mx-2" href="{{ route('login') }}"><x-icons.profile /></a>
                     @endauth
 
-                    <a class="mx-2" href="{{ route('wishlist') }}"><x-icons.favorites /></a>
+                    <a class="mx-2 relative" href="{{ route('wishlist') }}"><x-icons.favorites /></a>
                     <a class="relative mx-2" href="{{ route('card.index') }}"><x-icons.basket /></a>
                     <a class="mx-2" href="">
                         <span id="header-total">
@@ -197,6 +215,43 @@
 
         </div>
     </footer>
+    <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 lg:hidden">
+        <div class="grid h-full  grid-cols-4  font-medium">
+
+            <a type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group">
+                <svg class="w-6 h-6 mb-1  group-hover:text-color-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
+                </svg>
+                <span class="text-xs  group-hover:text-color-brand">Məhsullar</span>
+            </a>
+
+            <a href="{{ route('wishlist') }}" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group relative">
+                <div class="relative">
+                    <x-icons.favorites></x-icons.favorites>
+                   
+                </div>
+                <span class="text-xs  group-hover:text-color-brand">İstək siyahısı</span>
+            </a>
+
+            <a type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group relative">
+                <div class="relative">
+                    <svg class="w-6 h-6 mb-1  group-hover:text-color-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                    </svg>
+                    <span class="absolute -top-1 -right-2 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-blue-900 rounded-full">4</span>
+                </div>
+                <span class="text-xs  group-hover:text-color-brand">Səbət</span>
+            </a>
+
+            <a type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group">
+                <svg class="w-6 h-6 mb-1  group-hover:text-color-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-7 9a7 7 0 1 1 14 0H3Z" />
+                </svg>
+                <span class="text-xs  group-hover:text-color-brand">Hesabım</span>
+            </a>
+
+        </div>
+    </div>
     <!-- <footer class="bg-cover bg-center min-h-[300px]" style="background-image: url('/img/footer.webp')">
         
         <div class="flex justify-center">
@@ -255,6 +310,10 @@
                     if (label) {
                         label.textContent = nowInWishlist ? 'Sevimlilerden cixar' : 'Istek siyahisina elave et';
                     }
+
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        if (typeof data.count !== 'undefined') el.textContent = data.count;
+                    });
                 } catch (e) {
                     // Silent fail to avoid blocking UI; refresh still works if user reloads.
                 }
@@ -321,144 +380,77 @@
 
                 if (data.status === 'success') {
                     alert('Məhsul səbətə əlavə edildi!');
-                    // Səbət sayını yeniləmək üçün (əgər header-də yer ayırmısansa)
-                    const cartCounter = document.querySelector('.cart-count');
-                    if (cartCounter) cartCounter.textContent = data.cart_count;
+                    document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
+                    const headerTotal = document.getElementById('header-total');
+                    if (headerTotal && data.grand_total) headerTotal.textContent = data.grand_total;
                 }
             } catch (error) {
                 console.error('Xəta baş verdi:', error);
             }
         });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const input = document.getElementById('liveSearchInput');
+            const dropdown = document.getElementById('searchDropdown');
+            const resultsContainer = document.getElementById('searchResults');
+            const viewAllContainer = document.getElementById('viewAllContainer');
+            const viewAllBtn = document.getElementById('viewAllBtn');
 
-        document.addEventListener('click', function(e) {
-            // PLUS və ya MINUS düymələrini tuturuq
-            const btn = e.target.closest('.quantity-btn');
-            if (!btn) return;
+            let timeout = null;
 
-            const row = btn.closest('tr') || btn.closest('.flex'); // Sətiri tapırıq
-            const input = row.querySelector('.quantity-input');
-            const id = input.dataset.id;
-            let currentQty = parseInt(input.value);
+            input.addEventListener('input', function() {
+                clearTimeout(timeout);
+                const query = this.value.trim();
 
-            // Sayı artır və ya azalt
-            if (btn.classList.contains('plus')) {
-                currentQty++;
-            } else if (btn.classList.contains('minus') && currentQty > 1) {
-                currentQty--;
-            }
-
-            input.value = currentQty; // Ekranda dərhal dəyişsin
-
-            // İndi Serverə (Laravel) xəbər verək
-            updateCart(id, currentQty);
-        });
-
-        async function updateCart(id, qty) {
-            try {
-                const response = await fetch("{{ route('card.update') }}", {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        id: id,
-                        quantity: qty
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.status === 'success') {
-                    // Sətirdəki məbləği yenilə
-                    document.getElementById(`subtotal-${id}`).textContent = data.subtotal;
-                    // Sağ tərəfdəki ümumi məbləği yenilə
-                    document.getElementById('grand-total').textContent = data.grand_total;
-
-                    const headerTotal = document.getElementById('header-total');
-                    if (headerTotal) headerTotal.textContent = data.grand_total;
-                    // Headerdəki səbət sayını yenilə
-                    document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
+                if (query.length < 2) {
+                    dropdown.classList.add('hidden');
+                    return;
                 }
-            } catch (error) {
-                console.error('Xəta:', error);
-            }
 
-        }
+                // Serveri yormamaq üçün yazmağı bitirəndən 300ms sonra sorğu göndəririk (Debounce)
+                timeout = setTimeout(() => {
+                    fetch(`/ajax-search?q=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            resultsContainer.innerHTML = ''; // Əvvəlki nəticələri təmizlə
 
+                            if (data.length > 0) {
+                                data.forEach(product => {
+                                    // Şəkildəki kimi kart dizaynını bura yazırsan
+                                    // product.title, product.price, product.image_url və s.
+                                    const html = `
+                                    <a href="/product/${product.slug}" class="flex items-center gap-3 p-2 hover:bg-gray-50 transition">
+                                        <img src="/uploads/products/${product.image}" alt="${product.title}" class="w-12 h-16 object-cover border">
+                                        <div>
+                                            <h4 class="text-sm font-semibold text-gray-800">${product.title}</h4>
+                                            <p class="text-xs text-gray-500">${product.author || 'Yazar məlum deyil'}</p>
+                                            <p class="text-sm text-blue-600 font-bold">${product.price} ₼</p>
+                                        </div>
+                                    </a>
+                                `;
+                                    resultsContainer.insertAdjacentHTML('beforeend', html);
+                                });
 
-        document.querySelectorAll('input[name="shipping"]').forEach(radio => {
-            radio.addEventListener('change', async function() {
-                const method = this.getAttribute('data-method'); // data-method-u oxuyuruq
-                const price = this.getAttribute('data-price'); // data-price-ı oxuyuruq
+                                // "Hamısına bax" linkini yeniləyirik
+                                viewAllBtn.href = `/products?q=${encodeURIComponent(query)}`;
+                                viewAllContainer.classList.remove('hidden');
+                                dropdown.classList.remove('hidden');
+                            } else {
+                                resultsContainer.innerHTML = '<p class="text-gray-500 p-2">Heç nə tapılmadı...</p>';
+                                viewAllContainer.classList.add('hidden');
+                                dropdown.classList.remove('hidden');
+                            }
+                        });
+                }, 300);
+            });
 
-                try {
-                    const response = await fetch("{{ route('basket.updateShipping') }}", {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            method,
-                            price
-                        })
-                    });
-
-                    const data = await response.json();
-                    if (data.status === 'success') {
-                        console.log("Sessiya yeniləndi: " + method);
-                    }
-                } catch (error) {
-                    console.error("Xəta:", error);
+            // Çöldə bir yerə basanda dropdown-ı bağlamaq
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
                 }
             });
-        });
-
-
-        // silinme remove
-
-        document.addEventListener('click', async (e) => {
-            const removeBtn = e.target.closest('.remove-from-cart');
-            if (!removeBtn) return;
-
-            const id = removeBtn.dataset.id;
-            const url = removeBtn.dataset.url;
-            const row = removeBtn.closest('tr'); // Cədvəldəki sətri tapırıq
-
-            try {
-                const response = await fetch(url, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                const data = await response.json();
-
-                if (data.status === 'success') {
-                    row.remove();
-
-                    document.getElementById('grand-total').textContent = data.grand_total;
-
-                    // BAX BU SƏTİR YUXARIDAKI (HEADER) QİYMƏTİ DƏYİŞİR:
-                    const headerTotal = document.getElementById('header-total');
-                    if (headerTotal) headerTotal.textContent = data.grand_total;
-
-                    document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
-
-                    if (data.count === 0) {
-                        location.reload();
-                    } else {
-                        calculateFinalTotal();
-                    }
-                }
-            } catch (error) {
-                console.error('Silmə zamanı xəta:', error);
-            }
         });
     </script>
     @stack('scripts')

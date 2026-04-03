@@ -132,6 +132,7 @@
 </div>
 @push('scripts')
 <script>
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     document.querySelectorAll('.shipping-select').forEach(radio => {
         radio.addEventListener('change', function() {
             const method = this.getAttribute('data-method');
@@ -221,27 +222,16 @@
         const data = await response.json();
         if (data.status === 'success') {
             row.remove();
+            const headerTotal = document.getElementById('header-total');
+            if (headerTotal) headerTotal.textContent = data.grand_total;
+            document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
             if (data.count === 0) location.reload();
             else document.getElementById('grand-total').textContent = data.grand_total;
         }
     });
-
-    // Çatdırılma növünü seçmək
-    document.querySelectorAll('input[name="shipping"]').forEach(radio => {
-        radio.addEventListener('change', async function() {
-            await fetch("{{ route('basket.updateShipping') }}", {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': token,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    method: this.dataset.method,
-                    price: this.dataset.price
-                })
-            });
-        });
-    });
 </script>
 @endpush
 @endsection
+
+
+

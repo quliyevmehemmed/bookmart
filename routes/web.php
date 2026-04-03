@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/product/{slug}', [FrontendController::class, 'show'])->name('show.detail');
 Route::get('/products/{slug?}', [ControllersProductController::class, 'index'])->name('products.index');
+Route::get('/ajax-search', [ControllersProductController::class, 'searchAjax'])->name('search.ajax');
 
 // 2. İstifadəçi Dashboard (Breeze-in standart paneli)
 Route::get('/account', function () {

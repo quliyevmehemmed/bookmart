@@ -10,3 +10,6 @@
         2.52466 10.4101 4.42602 12.3115Z" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path>
     </g>
 </svg>
+<span class="absolute w-3.5 h-3.5 flex justify-center items-center text-[8px] rounded-full bg-color-brand right-[-5px] top-[-3px]">
+    <div class="wishlist-count font-poppins text-white">{{ count(session('wishlist', [])) }}</div>
+</span>
