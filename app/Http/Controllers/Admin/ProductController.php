@@ -106,7 +106,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -114,7 +115,47 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $slug = Str::slug($request->title);
+        $slugExists = Product::where('slug', $slug)
+            ->where('id', '!=', $product->id)
+            ->exists();
+
+        if ($slugExists) {
+            $slug = $slug . '-' . $product->id;
+        }
+
+        $product->title = $request->title;
+        $product->author = $request->author;
+        $product->slug = $slug;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->old_price = $request->old_price;
+        $product->category_id = $request->category_id;
+
+        if ($request->hasFile('image')) {
+            $oldImagePath = public_path('uploads/products/' . $product->image);
+            if (!empty($product->image) && File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('uploads/products'), $imageName);
+            $product->image = $imageName;
+        }
+
+        $product->save();
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Mehsul ugurla yenilendi.');
     }
 
     /**

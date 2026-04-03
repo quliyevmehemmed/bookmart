@@ -87,11 +87,11 @@
             <div class="flex items-center space-x-4 mb-8">
                 <div class="flex items-center border border-gray-200 rounded-sm">
                     <button @click="if(count > 1) count--" class="px-3 py-2 text-gray-400 hover:text-black transition-colors">-</button>
-                    <input type="text" x-model="count" class="w-12 text-center border-none focus:ring-0 text-sm font-medium" readonly>
+                    <input id="detail-qty-{{ $product->id }}" type="text" x-model="count" class="w-12 text-center border-none focus:ring-0 text-sm font-medium" readonly>
                     <button @click="count++" class="px-3 py-2 text-gray-400 hover:text-black transition-colors">+</button>
                 </div>
 
-                <button class="bg-[#2D2A5E] text-white px-10 py-3 text-xs font-bold tracking-[2px] hover:bg-black transition-all duration-300 uppercase rounded-sm shadow-md">
+                <button type="button" data-cart-add="{{ route('card.add', $product->id) }}" data-cart-qty-input="#detail-qty-{{ $product->id }}" class="bg-[#2D2A5E] text-white px-10 py-3 text-xs font-bold tracking-[2px] hover:bg-black transition-all duration-300 uppercase rounded-sm shadow-md">
                     SƏBƏTƏ AT
                 </button>
             </div>
@@ -150,3 +150,4 @@
         </div>
     </div>
 </div>
+

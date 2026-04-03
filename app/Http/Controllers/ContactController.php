@@ -30,13 +30,14 @@ class ContactController extends Controller
             $query->where('type', $request->type);
         }
 
-        if ($request->filled('status')) {
-            $query->where('is_read', $request->status);
-        } else {
+        $status = $request->query('status');
+        if ($status == '0' || $status == '1') {
+            $query->where('is_read', (int) $status);
+        } elseif (!$request->has('status') && !$request->filled('type')) {
             $query->where('is_read', '0');
         }
 
-        $messages = $query->latest()->paginate(10);
+        $messages = $query->latest()->paginate(10)->appends($request->query());
 
         return view('admin.messages.index', compact('messages'));
     }

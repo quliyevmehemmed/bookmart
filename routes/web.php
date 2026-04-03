@@ -23,9 +23,8 @@ Route::get('/products/{slug?}', [ControllersProductController::class, 'index'])-
 Route::get('/ajax-search', [ControllersProductController::class, 'searchAjax'])->name('search.ajax');
 
 // 2. İstifadəçi Dashboard (Breeze-in standart paneli)
-Route::get('/account', function () {
-    return view('profile.account');
-})->middleware(['auth', 'verified'])->name('account');
+Route::get('/account', [ProfileController::class, 'account'])->middleware(['auth', 'verified'])->name('account');
+Route::get('/account/orders', [ProfileController::class, 'orders'])->middleware(['auth', 'verified'])->name('account.orders');
 
 Route::get('/panel', function () {
     $user = auth()->user();
@@ -38,7 +37,7 @@ Route::get('/panel', function () {
 })->middleware(['auth']);
 
 // 4. Məhsulların (Kitabların) İdarə Edilməsi
-Route::get('admin/products/category/{categoryId}', [ControllersProductController::class, 'index'])->name('admin.products.category');
+Route::get('admin/products/category/{categoryId}', [AdminProductController::class, 'index'])->name('admin.products.category')->middleware(['auth']);
 Route::resource('admin/products', AdminProductController::class)->names('admin.products')->middleware(['auth']);
 
 // 5. Profil tənzimləmələri (Breeze-in standart marşrutları)
@@ -83,3 +82,4 @@ Route::resource('admin/categories', AdminCategoryController::class);
 
 // Auth (Login, Register, Logout) marşrutlarını yükləyir
 require __DIR__.'/auth.php';
+

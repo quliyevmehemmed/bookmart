@@ -51,7 +51,7 @@
         <h1 class="text-2xl font-bold">Books</h1>
 
         <a href="{{ route('admin.products.create') }}"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            class="bg-color-brand text-white px-4 py-2 rounded-lg hover:bg-green-950">
             + Add Book
         </a>
     </div>

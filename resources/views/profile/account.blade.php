@@ -1,13 +1,22 @@
 @extends('layouts.app1')
 
 @section('content')
+
+<x-page-banner title="HESABIM" >
+    <div class="text-[13px] text-white font-medium w-full md:w-auto text-center md:text-left">
+        <a href="/" class="text-white transition-colors">ƏSAS SƏHİFƏ &nbsp;</a>/
+
+        <span class="text-white font-semibold">&nbsp;HESABIM</span>
+    </div>
+</x-page-banner>
+
 <div class="max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-8 font-sans">
 
     <aside class="w-full md:w-1/4">
         <h2 class="text-xl font-bold border-b pb-4 mb-4 uppercase tracking-wider">Hesabım</h2>
         <nav class="flex flex-col space-y-1">
-            <a href="#" class="bg-gray-100 py-3 px-4 font-medium">Hesabım</a>
-            <a href="#" class="hover:bg-gray-50 py-2 px-4 transition border-b border-gray-100">Sifarişlər</a>
+            <a href="{{ route('account') }}" class="bg-gray-100 py-3 px-4 font-medium">Hesabım</a>
+            <a href="{{ route('account.orders') }}" class="hover:bg-gray-50 py-2 px-4 transition border-b border-gray-100">Sifarişlər</a>
             <a href="#" class="hover:bg-gray-50 py-2 px-4 transition border-b border-gray-100">Ünvan</a>
             <a href="#" class="hover:bg-gray-50 py-2 px-4 transition border-b border-gray-100">Hesab məlumatları</a>
             <a href="#" class="hover:bg-gray-50 py-2 px-4 transition border-b border-gray-100">İstək siyahısı</a>
@@ -21,13 +30,10 @@
 
     <main class="w-full md:w-3/4">
 
-        <div class="bg-amber-500 text-white p-6 rounded-sm mb-8 flex items-start gap-4 shadow-sm">
-            <div class="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center font-bold">!</div>
-            <p class="text-sm">Your account with bookmart.az is using a temporary password. We emailed you a link to change your password.</p>
-        </div>
+        
 
         <div class="mb-10 text-gray-700 leading-relaxed">
-            <p class="mb-4">Salam <span class="font-bold">quliyevmehem</span> ( <span class="text-gray-500 italic">quliyevmehem deyilsinizsə?</span>
+            <p class="mb-4">Salam <span class="font-bold">{{ $user->name }}</span> ( <span class="text-gray-500 italic">{{ $user->name }} deyilsinizsə?</span>
                 <button class="text-black font-semibold underline ml-1">Çıxış</button> )
             </p>
             <p class="text-sm text-gray-600 italic">
@@ -37,7 +43,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-            <a href="#" class="border border-gray-200 p-8 flex flex-col items-center justify-center hover:shadow-md transition group">
+            <a href="{{ route('account.orders') }}" class="border border-gray-200 p-8 flex flex-col items-center justify-center hover:shadow-md transition group">
                 <div class="mb-4 text-gray-400 group-hover:text-black transition">
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>

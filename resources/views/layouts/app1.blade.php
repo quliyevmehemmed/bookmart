@@ -218,7 +218,7 @@
     <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 lg:hidden">
         <div class="grid h-full  grid-cols-4  font-medium">
 
-            <a type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group">
+            <a href="/" type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group">
                 <svg class="w-6 h-6 mb-1  group-hover:text-color-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
                 </svg>
@@ -233,7 +233,7 @@
                 <span class="text-xs  group-hover:text-color-brand">İstək siyahısı</span>
             </a>
 
-            <a type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group relative">
+            <a type="button" href="{{ route('card.index') }}" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group relative">
                 <div class="relative">
                     <svg class="w-6 h-6 mb-1  group-hover:text-color-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
@@ -243,7 +243,7 @@
                 <span class="text-xs  group-hover:text-color-brand">Səbət</span>
             </a>
 
-            <a type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group">
+            <a href="{{ route('account') }}" type="button" class="text-center inline-flex flex-col items-center justify-center px-2 sm:px-5 hover:bg-gray-50 group">
                 <svg class="w-6 h-6 mb-1  group-hover:text-color-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-7 9a7 7 0 1 1 14 0H3Z" />
                 </svg>
@@ -362,6 +362,9 @@
 
             event.preventDefault();
             const url = cartBtn.dataset.cartAdd;
+            const qtyInputSelector = cartBtn.dataset.cartQtyInput;
+            const qtyInput = qtyInputSelector ? document.querySelector(qtyInputSelector) : null;
+            const quantity = Math.max(parseInt(qtyInput?.value, 10) || 1, 1);
 
             try {
                 const response = await fetch(url, {
@@ -372,7 +375,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        quantity: 1
+                        quantity
                     })
                 });
 

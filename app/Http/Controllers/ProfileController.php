@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,6 +12,23 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function account(Request $request): View
+    {
+        return view('profile.account', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function orders(Request $request): View
+    {
+        $orders = Order::withCount('items')
+            ->where('user_id', $request->user()->id)
+            ->latest()
+            ->paginate(10);
+
+        return view('profile.orders', compact('orders'));
+    }
+
     /**
      * Display the user's profile form.
      */

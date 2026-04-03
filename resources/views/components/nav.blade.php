@@ -22,7 +22,7 @@
             @php $hasSub = $category->subcategories->isNotEmpty(); @endphp
 
             <li class="relative group/item border-b border-gray-100">
-                <a href="{{ route('products.index', $category->slug) }}" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('products.index', $category->slug) }}" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-color-brand transition-colors">
                     {{$category->name}}
                     @if ($hasSub)
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
