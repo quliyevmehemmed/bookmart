@@ -68,17 +68,17 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('order.store');
 
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages');
-Route::delete('admin/messages/{id}', [ContactController::class, 'destroy'])->name('admin.messages.destroy');
-Route::patch('/admin/messages/{id}/read', [ContactController::class, 'markAsRead'])->name('admin.messages.read');
+Route::get('/admin/messages', [ContactController::class, 'index'])->name('admin.messages')->middleware(['auth']);
+Route::delete('admin/messages/{id}', [ContactController::class, 'destroy'])->name('admin.messages.destroy')->middleware(['auth']);
+Route::patch('/admin/messages/{id}/read', [ContactController::class, 'markAsRead'])->name('admin.messages.read')->middleware(['auth']);
 
-Route::get('/admin/orders', [OrederController::class, 'index'])->name('admin.orders');
-Route::delete('admin/orders/{id}', [OrederController::class, 'destroy'])->name('admin.orders.destroy');
-Route::get('admin/orders/{order}', [OrederController::class, 'show'])->name('admin.orders.show');
-Route::put('admin/orders/{order}', [OrederController::class, 'update'])->name('admin.orders.update');
+Route::get('/admin/orders', [OrederController::class, 'index'])->name('admin.orders')->middleware(['auth']);
+Route::delete('admin/orders/{id}', [OrederController::class, 'destroy'])->name('admin.orders.destroy')->middleware(['auth']);
+Route::get('admin/orders/{order}', [OrederController::class, 'show'])->name('admin.orders.show')->middleware(['auth']);
+Route::put('admin/orders/{order}', [OrederController::class, 'update'])->name('admin.orders.update')->middleware(['auth']);
 
-Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('admin.category');
-Route::resource('admin/categories', AdminCategoryController::class);
+Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('admin.category')->middleware(['auth']);
+Route::resource('admin/categories', AdminCategoryController::class)->middleware(['auth']);
 
 // Auth (Login, Register, Logout) marşrutlarını yükləyir
 require __DIR__.'/auth.php';

@@ -133,15 +133,43 @@
 @push('scripts')
 <script>
     const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const grandTotalEl = document.getElementById('grand-total');
+    const finalTotalEl = document.getElementById('final-total');
+
+    function parseMoney(value) {
+        if (!value) return 0;
+        const cleaned = String(value).replace(/[^\d,.-]/g, '').replace(',', '.');
+        const parsed = parseFloat(cleaned);
+        return Number.isNaN(parsed) ? 0 : parsed;
+    }
+
+    function formatMoney(value) {
+        const amount = parseMoney(value);
+        const normalized = Number.isInteger(amount) ? amount.toString() : amount.toFixed(2);
+        return normalized + ' ₼';
+    }
+
+    function getSelectedShippingPrice() {
+        const checked = document.querySelector('.shipping-select:checked');
+        return checked ? parseMoney(checked.dataset.price) : 0;
+    }
+
+    function refreshFinalTotal() {
+        if (!grandTotalEl || !finalTotalEl) return;
+        const subtotal = parseMoney(grandTotalEl.textContent);
+        const shippingPrice = getSelectedShippingPrice();
+        finalTotalEl.textContent = formatMoney(subtotal + shippingPrice);
+    }
+
     document.querySelectorAll('.shipping-select').forEach(radio => {
         radio.addEventListener('change', function() {
-            const method = this.getAttribute('data-method');
-            const price = this.getAttribute('data-price');
+            const method = this.dataset.method;
+            const price = this.dataset.price;
 
             fetch("{{ route('basket.updateShipping') }}", {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-CSRF-TOKEN': token,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
@@ -153,10 +181,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        // Səhifədəki "Ümumi" məbləği də anlıq yeniləyək
-                        const subtotal = parseFloat("{{ $umumiMebleg }}");
-                        const shippingPrice = parseFloat(price);
-                        document.getElementById('final-total').innerText = (subtotal + shippingPrice).toFixed(2) + " ₼";
+                        refreshFinalTotal();
                     }
                 });
         });
@@ -167,6 +192,8 @@
         const checkedRadio = document.querySelector('.shipping-select:checked');
         if (checkedRadio) {
             checkedRadio.dispatchEvent(new Event('change'));
+        } else {
+            refreshFinalTotal();
         }
     });
 
@@ -204,6 +231,7 @@
             document.getElementById(`subtotal-${id}`).textContent = data.subtotal;
             document.getElementById('grand-total').textContent = data.grand_total;
             if (document.getElementById('header-total')) document.getElementById('header-total').textContent = data.grand_total;
+            refreshFinalTotal();
         }
     }
 
@@ -226,12 +254,14 @@
             if (headerTotal) headerTotal.textContent = data.grand_total;
             document.querySelectorAll('.cart-count').forEach(el => el.textContent = data.count);
             if (data.count === 0) location.reload();
-            else document.getElementById('grand-total').textContent = data.grand_total;
+            else {
+                document.getElementById('grand-total').textContent = data.grand_total;
+                refreshFinalTotal();
+            }
         }
     });
 </script>
 @endpush
 @endsection
-
 
 

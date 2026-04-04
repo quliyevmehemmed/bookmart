@@ -51,6 +51,7 @@ $siblingCategories = $parentCategory->subcategories;
                 @endif
 
                 <select name="sort" onchange="this.form.submit()"
+                    style="appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: none;"
                     class="appearance-none bg-transparent border-b border-black pb-1 pr-8 cursor-pointer focus:outline-none focus:ring-0 focus:border-black text-black">
                     <option value="">Çeşidləmə</option>
                     <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Ucuzdan bahaya</option>
@@ -70,12 +71,13 @@ $siblingCategories = $parentCategory->subcategories;
 </div>
 @endif
 
-<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 m-6 max-w-[1200px] mx-auto">
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 m-6 max-w-[1200px] mx-auto">
     @foreach($products as $product)
     <x-book-card :book="$product" />
     @endforeach
 </div>
 
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById('mobileMenuBtn');
@@ -99,5 +101,6 @@ $siblingCategories = $parentCategory->subcategories;
         }
     });
 </script>
+@endpush
 
 @endsection
