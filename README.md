@@ -5,8 +5,11 @@ Bookmart is a dynamic and fully functional online bookstore platform built with 
 ## ✨ Key Features
 
 * **Category Management:** Comprehensive CRUD (Create, Read, Update, Delete) functionality for organizing books into specific categories.
-* **Wishlist System:** Allows users to save and track their favorite books in a personalized wishlist.
 * **Optimized Database:** Well-structured relational database design (MySQL) for fast and reliable data retrieval.
+* **Admin Dashboard:** Full control over books, categories, and user orders.
+* **Authentication:** Secure user login and registration system.
+* **SeShopping Cart:** Real-time product management in the cart.
+* **Wishlist System:** Allows users to save and track their favorite books in a personalized wishlist.
 * **Responsive Design:** Clean and modern user interface utilizing Tailwind CSS for optimal viewing across all devices.
 
 ## 🛠 Tech Stack
