@@ -63,5 +63,6 @@ The application will be available at http://localhost:8000.
 Mehemmed Quliyev
 
 GitHub: @quliyevmehemmed
+Linkedin: https://www.linkedin.com/in/m%C9%99h%C9%99mm%C9%99d-quliyev-dev/
 
 If you have any feedback or suggestions, feel free to open an issue or reach out!
